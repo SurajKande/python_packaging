@@ -14,12 +14,12 @@ for example consider a project of creating a game:
    ![example of package](https://cdn.programiz.com/sites/tutorial2program/files/PackageModuleStructure.jpg)
 - an alternate for packaging, you should [freeze your application](https://docs.python-guide.org/shipping/freezing/#freezing-your-code-ref)
 
-# how to create a package
-[example_of a_sample_package]()
-example how to create a package with some Python modules:
-step1: create a dictionary, The name of this directory will be the name of the package, which we want to create 
-step2: This directory needs to contain a file with the name "__init__.py". This file can be empty, or it can contain valid Python code.          This code will be executed when a package will be imported, so it can be used to initialize a package,
-step3: Now we can add the Python files and modules into this package 
+# how to create a package:
+[example_of a_sample_package](https://github.com/SurajKande/python_packaging/tree/master/package_example)
+steps to create a package with some Python modules and submodules:
+   step1: create a dictionary, The name of this directory will be the name of the package, which we want to create 
+   step2: This directory needs to contain a file with the name "__init__.py". This file can be empty, or it can contain valid Python code.          This code will be executed when a package will be imported, so it can be used to initialize a package,
+   step3: Now we can add the Python files and modules into this package 
 
 # types of packaging for distribution 
 
