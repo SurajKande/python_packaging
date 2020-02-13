@@ -6,11 +6,11 @@ A python package is a directory of python modules(files are also modules) with a
 
 example of package structure:
 
-![example1](https://www.python-course.eu/images/packages.png)
+    ![example1](https://www.python-course.eu/images/packages.png)
  
- for example consider a project of creating a game 
-![example of package](https://cdn.programiz.com/sites/tutorial2program/files/PackageModuleStructure.jpg)
-
+ for example consider a project of creating a game:
+ 
+    ![example of package](https://cdn.programiz.com/sites/tutorial2program/files/PackageModuleStructure.jpg)
 - an alternate for packaging, you should [freeze your application](https://docs.python-guide.org/shipping/freezing/#freezing-your-code-ref)
 
 # how to create a package
