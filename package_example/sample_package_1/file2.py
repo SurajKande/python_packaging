@@ -1,1 +1,2 @@
-print('printed from file2')
+def fun2():
+  print('printed from file2')
