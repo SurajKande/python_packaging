@@ -25,7 +25,7 @@ A python package is a directory of python modules(files are also modules) with a
    
    step3: Now we can add the Python files and modules into this package 
 
-# types of packaging for distribution:
+# types of packaging for distribution:[](https://packaging.python.org/overview/)
    
    Because packages consist of multiple files, they are harder to distribute. Most protocols support transferring only one file at a time (when was the last time you clicked a link and it downloaded multiple files?). It’s easier to get incomplete transfers, and harder to guarantee code integrity at the destination.
 
