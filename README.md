@@ -175,5 +175,5 @@ to publish create a distributed package and follow the steps below
          docker run -p 80:8080 pypiserver/pypiserver:latest
          You can now access your pypiserver at localhost:80 in a web browser.
   
-  ## 3. [pypi server on AmazonS3](https://www.novemberfive.co/blog/opensource-pypi-package-repository-tutorial):
+  ## 4. [pypi server on AmazonS3](https://www.novemberfive.co/blog/opensource-pypi-package-repository-tutorial):
    
