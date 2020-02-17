@@ -85,7 +85,7 @@ to publish create a distributed package and follow the steps below
  step2: use twine, a utility for uploading Python packages.
         Simply run: twine upload dist/*
         
-    >note: you should see one progress bar as your .whl file is uploaded, and a second when the .tar.gz archive is uploaded, after which           the upload will be complete.
+    >note: you should see one progress bar as your .whl file is uploaded, and a second when the .tar.gz archive is uploaded, after which the upload will be complete.
 
 # create a private repo for internal use 
 
