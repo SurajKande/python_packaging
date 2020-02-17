@@ -116,19 +116,64 @@ to publish create a distributed package and follow the steps below
    [pypiserver](https://pypi.org/project/pypiserver/) is a minimal PyPI compatible server. It can be used to serve a set of packages to    easy_install or pip. It includes helpful features like an administrative command (-U) which will update all its packages to their        latest versions found on PyPI.
    pypiserver > 1.2.x works with Python 2.7 and 3.4+
    
-   step1: Install pypiserver with this command:
+      step1: Install pypiserver with this command:
    
-         ``` pip install pypiserver
-             mkdir ~/packages        # Copy packages into this directory.```
-   step2: Copy some packages into your ~/packages folder and then get your pypiserver up and running:
+             pip install pypiserver
+             mkdir ~/packages        # Copy packages into this directory.
+      step2: Copy some packages into your ~/packages folder and then get your pypiserver up and running:
    
-          ```pypi-server -p 8080 ~/packages &     ```
+             pypi-server -p 8080 ~/packages &   
    
-   step3: To download the packages from another system
+      step3: To download the packages from another system
    
-          ``` # Download and install hosted packages.
-              pip install --extra-index-url http://localhost:8080 ... 
-              # Search hosted packages.
-              pip search --index http://localhost:8080 ...```
-       > note:  pypiserver redirects pip/easy_install to the pypi.org index if it doesn’t have a requested package
-   step4: 
+             # Download and install hosted packages.
+               pip install --extra-index-url http://localhost:8080 ... 
+   
+             # Search hosted packages.
+               pip search --index http://localhost:8080 ... 
+   
+      >***NOTE***:  pypiserver redirects pip/easy_install to the pypi.org index if it doesn’t have a requested package
+   
+      step4: to make the pipy server search for the packages in hosted server by adding the following lines
+   
+              ~/.pip/pip.conf:
+   
+              [global]
+               extra-index-url = http://localhost:8080/simple/
+   
+      step5: to upload the pacakges
+   
+            1. upload using setuptools:
+                     create a  ~/.pypirc file
+   
+                        [distutils]
+                        index-servers =
+                          pypi
+                          local
+   
+                        [pypi]
+                        username:<your_pypi_username>
+                        password:<your_pypi_passwd>
+   
+                        [local]
+                        repository: http://localhost:8080
+                        username: <some_username>
+                        password: <some_passwd>
+   
+      
+   ## 3. pypi server using docker:
+   To run the most recent release of pypiserver with Docker, simply:
+   
+          docker run pypiserver/pypiserver:latest 
+          
+   > This starts pypiserver serving packages from the /data/packages directory inside the container, listening on the container port 8080.
+
+  The container takes all the same arguments as the normal pypi-server executable, with the exception of the internal container  port (-p), which will always be 8080.
+
+  To map port 80 on the host to port 8080 on the container:
+
+         docker run -p 80:8080 pypiserver/pypiserver:latest
+         You can now access your pypiserver at localhost:80 in a web browser.
+  
+  ## 3. [pypi server on AmazonS3](https://www.novemberfive.co/blog/opensource-pypi-package-repository-tutorial):
+   
