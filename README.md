@@ -70,11 +70,13 @@ A python package is a directory of python modules(files are also modules) with a
 
 
 # publish the package in opensource
-If you’re writing an open source Python module, **PyPI** , more properly known as The ***Cheeseshop***, is the place to host it.
+If you’re writing an open source Python module and upload its package, **PyPI** (python packaging index) , more properly known as The ***Cheeseshop***, is the place to host it.
 to publish create a distributed package and follow the steps below
-
- step1: to upload you packages to the global PyPI server you’ll have to register to the PyPI website to authenticate with the PyPI
-         server — in a text file named .pypirc, commonly placed in your home folder. Create it, and populate it as demonstrated below:
+ 
+ step1: create a districution package (as mentioned above )
+ 
+ step2: to upload you packages to the global PyPI server you’ll have to register to the PyPI website to authenticate with the PyPI
+ server — in a text file named .pypirc, commonly placed in your home folder. Create it, and populate it as demonstrated below:
                 ```  [distutils]
                   index-servers =
                     pypi
@@ -82,12 +84,11 @@ to publish create a distributed package and follow the steps below
                   [pypi]
                   username: teapot48
                   password: myPYPIpassword ```
- step2: use twine, a utility for uploading Python packages.
-        Simply run: twine upload dist/*
-        
-    >note: you should see one progress bar as your .whl file is uploaded, and a second when the .tar.gz archive is uploaded, after which the upload will be complete.
+ step3: use twine, a utility for uploading Python packages. Simply run: twine upload dist/* 
+      
+ >note: you should see one progress bar as your .whl file is uploaded, and a second when the .tar.gz archive is uploaded, after which the upload will be complete.
 
-# create a private repo for internal use 
+# create a private repo for internal or personal use 
 
    ## 1. Personal pypi:
    If you want to install packages from a source other than PyPI (say, if your packages are proprietary), you can do it by hosting a        simple HTTP server, running from the directory which holds those packages which need to be installed.
@@ -113,4 +114,21 @@ to publish create a distributed package and follow the steps below
 
    ## 2. pypi server:
    [pypiserver](https://pypi.org/project/pypiserver/) is a minimal PyPI compatible server. It can be used to serve a set of packages to    easy_install or pip. It includes helpful features like an administrative command (-U) which will update all its packages to their        latest versions found on PyPI.
-
+   pypiserver > 1.2.x works with Python 2.7 and 3.4+
+   
+   step1: Install pypiserver with this command:
+   
+         ``` pip install pypiserver
+             mkdir ~/packages        # Copy packages into this directory.```
+   step2: Copy some packages into your ~/packages folder and then get your pypiserver up and running:
+   
+          ```pypi-server -p 8080 ~/packages &     ```
+   
+   step3: To download the packages from another system
+   
+          ``` # Download and install hosted packages.
+              pip install --extra-index-url http://localhost:8080 ... 
+              # Search hosted packages.
+              pip search --index http://localhost:8080 ...```
+       > note:  pypiserver redirects pip/easy_install to the pypi.org index if it doesn’t have a requested package
+   step4: 
