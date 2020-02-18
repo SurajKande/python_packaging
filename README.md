@@ -112,7 +112,7 @@ to publish create a distributed package and follow the steps below
    $ pip install  http://127.0.0.1:9000/MyPackage.tar.gz
    ```
 
-   ## 2. pypi server:
+   ## 2. pypi server on local system:
    [pypiserver](https://pypi.org/project/pypiserver/) is a minimal PyPI compatible server. It can be used to serve a set of packages to    easy_install or pip. It includes helpful features like an administrative command (-U) which will update all its packages to their        latest versions found on PyPI.
    pypiserver > 1.2.x works with Python 2.7 and 3.4+
    
@@ -161,7 +161,7 @@ to publish create a distributed package and follow the steps below
                         password: <some_passwd>
    
       
-   ## 3. pypi server using docker:
+   ## 3. pypi server using docker on local system :
    To run the most recent release of pypiserver with Docker, simply:
    
           docker run pypiserver/pypiserver:latest 
@@ -175,7 +175,7 @@ to publish create a distributed package and follow the steps below
          docker run -p 80:8080 pypiserver/pypiserver:latest
          You can now access your pypiserver at localhost:80 in a web browser.
   
-  ## 4. pypi server on AWS-S3
+  ## 4. pypi server on AWS-S3:
   There are a few prerequisites when setting up a Python package repository on S3:
 
    * An AWS account.
@@ -195,10 +195,89 @@ to publish create a distributed package and follow the steps below
    
    Install your packages using pip by pointing the --extra-index-url to your subdomain:
       ```$ pip install my-project --extra-index-url https://pypi.example.com/```
+ [source](https://www.novemberfive.co/blog/opensource-pypi-package-repository-tutorial):
+ 
+   ## 5. pypi server on AWS EC2:
+   After setting up the instance on EC2 and successfully able to connect to the instance using SSH
+   See if python3 is already pre-installed:
+   ```sudo yum list | grep python3```
+   
+   If not, install the version you would like to use:
+   ```sudo yum install python36```
+   
+ * install docker
+   ```sudo yum install docker```
+      start the service
+      ```sudo service docker start```
+      give docker permission to run without using sudo every time
+      ```sudo usermod -a -G docker ec2-user```
+      > note: if you chose an ubuntu AMI instead, username would be ubuntu@IPv4Address
+      exit the instance to make sure the changes take effect 
       
+ * SSH back into the instance and test if the changes have taken effect:
+      check if you can run docker without the sudo command
+      ```docker info```
+      if not, debug the previous steps. If so, run a test image
+      ```docker run hello-world```
+      > you should see a hello message from docker after running the last command
    
+ * install docker-compose:
+   run the below steps:
    
+       step1: sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null
+        
+       step2: sudo chmod +x /usr/local/bin/docker-compose  #give the proper permission for docker-compose
+       
+       step3: sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose   #create a symbolic link so you can run docker-compose by just typing docker-compose
+       
+       step4: docker-compose --version     # you should see docker-compose version x.xx.x, build xxxxxxx
    
+  
+ * to set up a directory to store usernames and passwords that the pypi server will use to authenticate upload or download requests. We used the “htapasswd” package for this.
+ 
+   install httpd-tools with yum
+   ```sudo yum install httpd-tools```
+   switch to the user's home directory
+   ```cd```
+   make a new directory called auth
+   ```mkdir auth```
+   cd into the auth directory
+   ```cd auth```
+   create a new .htpasswd file
+   ```htpasswd -sc .htpasswd <username>```
+   > it will prompt you to enter a new password. Follow the prompts
    
-  [source](https://www.novemberfive.co/blog/opensource-pypi-package-repository-tutorial):
-   
+   > to add users
+      `htpasswd -s .htpasswd <NewUsername>`
+
+* create a new docker-compose.yml file with the following contents
+  
+        version: '3.3'
+      services:
+        pypi-server:
+          image: pypiserver/pypiserver:latest
+          ports:
+            - "8081:8080"
+          container_name: pypi-server
+          volumes:
+            - type: bind
+              source: /home/ec2-user/auth
+              target: /data/auth
+            - type: volume
+              source: pypi-server
+              target: /data/packages
+          command: -P /data/auth/.htpasswd -a update,download,list /data/packages
+          restart: always
+      volumes:
+        pypi-server:
+     
+      First, the port mapping is import, because we can’t make requests directly to the docker container. Instead, we will be making requests to the host EC2 instance we have, so we mapped the host 8081 port to the docker container 8080 port.
+     
+      Next, we gave the container an easy to remember name via “container_name”. This way, we can easily find and work with this container in the future by using pypi-server instead of the long id docker assigns the container.
+      
+      We also mapped the host directory we created, which contains our .htpasswd file to the container volume at /data/auth. This allows our pypi-server in the docker container to handle authentication using the host file we created to validate incoming credentials.
+      
+      Then, we created a named volume “pypi-server” to map to the /data/packages volume in the docker container. This allows packages we upload to the pypi server within the docker container to persist in the named docker volume we created on the host machine. You can check this volume by typing: docker volume ls
+      Otherwise, if the container goes down for some reason, the packages uploaded already would be lost.
+      
+      Finally, we specify the restart field as “always”. This ensures that if the container goes down by accident, it will always restart.
