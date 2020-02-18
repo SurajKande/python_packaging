@@ -1,15 +1,15 @@
 # python Packaging
-this repository is based on packaging in python 
+this repository is based on how to create packages and distribute the pacakges.  
 
 # what is packaging
-A python package is a directory of python modules(files are also modules) with a file named __init__.py
+A python package is a directory of python modules( python files are also modules) with a file named __init__.py
 
 ### example of package structure:
 
    ![example1](https://www.python-course.eu/images/packages.png)
  
 
-### for example consider a project of creating a game:
+### real time example of a project package of creating a game:
  
    ![example of package](https://cdn.programiz.com/sites/tutorial2program/files/PackageModuleStructure.jpg)
 - an alternate for packaging, you should [freeze your application](https://docs.python-guide.org/shipping/freezing/#freezing-your-code-ref)
@@ -24,9 +24,9 @@ A python package is a directory of python modules(files are also modules) with a
 
       step3: Now we can add the Python files and modules into this package 
 
-   the package is created which we can use locally by
-   - placing the package in the same root directory of the main code
-   - (or) place this package in the lib folder of the main python folder
+* the package is created which we can use locally by:
+      - placing the package in the same root directory of the main code
+      - (or) place this package in the lib folder of the main python folder
 
 
 > note: we need to add few more files to make it into a distributed package 
@@ -76,8 +76,8 @@ to publish create a distributed package and follow the steps below
  step1: create a districution package (as mentioned above )
  
  step2: to upload you packages to the global PyPI server you’ll have to register to the PyPI website to authenticate with the PyPI
- server — in a text file named .pypirc, commonly placed in your home folder. Create it, and populate it as demonstrated below:
-                ```  [distutils]
+ server in a text file named ***.pypirc***, commonly placed in your home folder. Create it, and text it as demonstrated below:
+             ```  [distutils]
                   index-servers =
                     pypi
                     testpypi
@@ -175,5 +175,30 @@ to publish create a distributed package and follow the steps below
          docker run -p 80:8080 pypiserver/pypiserver:latest
          You can now access your pypiserver at localhost:80 in a web browser.
   
-  ## 4. [pypi server on AmazonS3](https://www.novemberfive.co/blog/opensource-pypi-package-repository-tutorial):
+  ## 4. pypi server on AWS-S3
+  There are a few prerequisites when setting up a Python package repository on S3:
+
+   * An AWS account.
+   * A domain or subdomain, e.g. pypi.example.com. You should be able to create or modify the DNS record for the (sub)domain you want to use.
+   * An SSL certificate for the domain you’re using.
+   
+   In your AWS account, you need to setup an S3 bucket configured for website hosting, as well as a Cloudfront distribution for serving the content in your S3 bucket over a secure (HTTPS) connection, which is required by pip (by default).
+   
+   Install the s3pypi command line tool by running
+       ```$ (sudo) pip install -U s3pypi``` 
+
+   in your console. If everything goes well, you should be able to run the s3pypi command line tool now:
+       ```$ s3pypi -v```
+   
+   In order to upload your package to your repository, cd to the root directory of your project, and run:
+       ```$ s3pypi --bucket pypi.example.com```
+   
+   Install your packages using pip by pointing the --extra-index-url to your subdomain:
+      ```$ pip install my-project --extra-index-url https://pypi.example.com/```
+      
+   
+   
+   
+   
+  [source](https://www.novemberfive.co/blog/opensource-pypi-package-repository-tutorial):
    
