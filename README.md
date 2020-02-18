@@ -271,13 +271,25 @@ to publish create a distributed package and follow the steps below
       volumes:
         pypi-server:
      
-      First, the port mapping is import, because we can’t make requests directly to the docker container. Instead, we will be making requests to the host EC2 instance we have, so we mapped the host 8081 port to the docker container 8080 port.
+      1. First, the port mapping is import, because we can’t make requests directly to the docker container. Instead, we will be making requests to the host EC2 instance we have, so we mapped the host 8081 port to the docker container 8080 port.
      
-      Next, we gave the container an easy to remember name via “container_name”. This way, we can easily find and work with this container in the future by using pypi-server instead of the long id docker assigns the container.
+      2. Next, we gave the container an easy to remember name via “container_name”. This way, we can easily find and work with this container in the future by using pypi-server instead of the long id docker assigns the container.
       
-      We also mapped the host directory we created, which contains our .htpasswd file to the container volume at /data/auth. This allows our pypi-server in the docker container to handle authentication using the host file we created to validate incoming credentials.
+      3. We also mapped the host directory we created, which contains our .htpasswd file to the container volume at /data/auth. This allows our pypi-server in the docker container to handle authentication using the host file we created to validate incoming credentials.
       
-      Then, we created a named volume “pypi-server” to map to the /data/packages volume in the docker container. This allows packages we upload to the pypi server within the docker container to persist in the named docker volume we created on the host machine. You can check this volume by typing: docker volume ls
+      4. Then, we created a named volume “pypi-server” to map to the /data/packages volume in the docker container. This allows packages we upload to the pypi server within the docker container to persist in the named docker volume we created on the host machine. You can check this volume by typing: docker volume ls
       Otherwise, if the container goes down for some reason, the packages uploaded already would be lost.
       
-      Finally, we specify the restart field as “always”. This ensures that if the container goes down by accident, it will always restart.
+      5. Finally, we specify the restart field as “always”. This ensures that if the container goes down by accident, it will always restart.
+
+now the private pypi server is up and running on the AWS.
+
+to upload your package to the pypi server created earlier in this guide.
+```twine upload --repository-url http://(ec2 IPv4 IP address):8081 dist/*```
+
+to install packages from your pypi server
+```pip install --extra-index-url http://(EC2 IPv4 IP Address):8081 YourPackageName --trusted-host (EC2 IPv4 IP Address)```
+> If you don’t want to type the extra url and trusted host additions to the pip command, you may set up a .pip directory in your $HOME directory with a file called pip.conf like so:
+```[global]
+   extra-index-url = http://(EC2 IPv4 IP Address):8081/
+    trusted-host = (EC2 IPv4 IP Address)```
