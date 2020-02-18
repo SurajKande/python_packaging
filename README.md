@@ -200,24 +200,31 @@ to publish create a distributed package and follow the steps below
    ## 5. pypi server on AWS EC2:
    After setting up the instance on EC2 and successfully able to connect to the instance using SSH
    See if python3 is already pre-installed:
+   
    ```sudo yum list | grep python3```
    
    If not, install the version you would like to use:
+   
    ```sudo yum install python36```
    
  * install docker
+ 
    ```sudo yum install docker```
       start the service
+      
       ```sudo service docker start```
       give docker permission to run without using sudo every time
+      
       ```sudo usermod -a -G docker ec2-user```
       > note: if you chose an ubuntu AMI instead, username would be ubuntu@IPv4Address
       exit the instance to make sure the changes take effect 
       
  * SSH back into the instance and test if the changes have taken effect:
       check if you can run docker without the sudo command
+      
       ```docker info```
       if not, debug the previous steps. If so, run a test image
+      
       ```docker run hello-world```
       > you should see a hello message from docker after running the last command
    
@@ -236,18 +243,24 @@ to publish create a distributed package and follow the steps below
  * to set up a directory to store usernames and passwords that the pypi server will use to authenticate upload or download requests. We used the “htapasswd” package for this.
  
    install httpd-tools with yum
+   
    ```sudo yum install httpd-tools```
    switch to the user's home directory
+   
    ```cd```
    make a new directory called auth
+   
    ```mkdir auth```
    cd into the auth directory
+   
    ```cd auth```
    create a new .htpasswd file
+   
    ```htpasswd -sc .htpasswd <username>```
    > it will prompt you to enter a new password. Follow the prompts
    
    > to add users
+   
       `htpasswd -s .htpasswd <NewUsername>`
 
 * create a new docker-compose.yml file with the following contents
@@ -285,10 +298,13 @@ to publish create a distributed package and follow the steps below
 now the private pypi server is up and running on the AWS.
 
 to upload your package to the pypi server created earlier in this guide.
+
 ```twine upload --repository-url http://(ec2 IPv4 IP address):8081 dist/*```
 
 to install packages from your pypi server
+
 ```pip install --extra-index-url http://(EC2 IPv4 IP Address):8081 YourPackageName --trusted-host (EC2 IPv4 IP Address)```
+
 > If you don’t want to type the extra url and trusted host additions to the pip command, you may set up a .pip directory in your $HOME directory with a file called pip.conf like so:
 ```[global]
    extra-index-url = http://(EC2 IPv4 IP Address):8081/
