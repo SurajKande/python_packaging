@@ -299,13 +299,22 @@ now the private pypi server is up and running on the AWS.
 
 to upload your package to the pypi server created earlier in this guide.
 
-```twine upload --repository-url http://(ec2 IPv4 IP address):8081 dist/*```
+`twine upload --repository-url http://(ec2 IPv4 IP address):8081 dist/*`
 
 to install packages from your pypi server
 
-```pip install --extra-index-url http://(EC2 IPv4 IP Address):8081 YourPackageName --trusted-host (EC2 IPv4 IP Address)```
+`pip install --extra-index-url http://(EC2 IPv4 IP Address):8081 YourPackageName --trusted-host (EC2 IPv4 IP Address)`
 
 > If you don’t want to type the extra url and trusted host additions to the pip command, you may set up a .pip directory in your $HOME directory with a file called pip.conf like so:
-```[global]
+   `[global]
    extra-index-url = http://(EC2 IPv4 IP Address):8081/
-    trusted-host = (EC2 IPv4 IP Address)```
+    trusted-host = (EC2 IPv4 IP Address)`
+ 
+# dev-pi server
+DevPI is a PyPI-compatible server you can run locally. It will not, and does not try, to scale to PyPI-like levels. In return, running it locally is simple and no frills.
+
+* devpi-server: for serving a pypi.python.org consistent caching index as well as local github-style overlay indexes.
+* devpi-web: plugin for devpi-server that provides a web and search interface
+* devpi-client: command line tool with sub commands for creating users, using indexes, uploading to and installing from indexes, as well as a “test” command for invoking tox.
+
+
