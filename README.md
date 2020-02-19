@@ -54,19 +54,19 @@ A python package is a directory of python modules( python files are also modules
 # create a distribution package:
 
    ### steps to create a basic package with some Python modules and submodules:
-      step1: create a dictionary, The name of this directory will be the name of the package, which we want to create 
+      step1: create a dictionary, The name of this directory will be the name of the package, which we want to create. 
 
-      step2: This directory needs to contain a file with the name "__init__.py". This file can be empty, or it can contain valid Python              code. This code will be executed when a package will be imported, so it can be used to initialize a package,
+      step2: This directory needs to contain a file with the name "__init__.py". This file can be empty, or it can contain valid Python code. This code will be executed when a package will be imported, so it can be used to initialize a package.
 
-      step3: Now we can add the Python files and modules into this package 
+      step3: Now add the Python files and modules into this package which are to be distributed.
       
-      step4: create a setup.py file, it contains the actual instructions used when building and distributing the package.
+      step4: create a setup.py file in the root folder, it acts as the entrypoint to the package as it contains the actual instructions used when building and distributing the package.
       
-      step5: Python packages are built into build distribution files, which are then uploaded to a server — usually the global PyPI server — from which they can be downloaded by everybody.
+      step5: Python packages are built into distribution packages, which are then uploaded to a server — usually uploaded to the global PyPI server — from which every person can access it and download.
       
-      step6: Now, to build the distribution files simply run the following command in the root folder where your setup.py is located:
-              ``` python setup.py sdist bdist_wheel ```
-             The two files we’re going to upload are located in the dist folder
+      step6: to build the distribution files simply run the following command in the root folder where your setup.py is located:
+               python setup.py sdist bdist_wheel # creates source and build distribution files.
+           > two files are created in the root folder which we’re going to upload.
 
 
 # publish the package in opensource
