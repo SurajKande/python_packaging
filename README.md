@@ -65,8 +65,10 @@ A python package is a directory of python modules( python files are also modules
       step5: Python packages are built into distribution packages, which are then uploaded to a server — usually uploaded to the global PyPI server — from which every person can access it and download.
       
       step6: to build the distribution files simply run the following command in the root folder where your setup.py is located:
-               python setup.py sdist bdist_wheel # creates source and build distribution files.
-           > two files are created in the root folder which we’re going to upload.
+      
+              ``` python setup.py sdist bdist_wheel ```               # creates source and build distribution files.
+           
+            > two files are created in the root folder which we’re going to upload.
 
 
 # publish the package in opensource
