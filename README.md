@@ -14,6 +14,17 @@ A python package is a directory of python modules( python files are also modules
    ![example of package](https://cdn.programiz.com/sites/tutorial2program/files/PackageModuleStructure.jpg)
 - an alternate for packaging, you should [freeze your application](https://docs.python-guide.org/shipping/freezing/#freezing-your-code-ref)
 
+## Table of Contents:
+1. [package_example](https://github.com/SurajKande/python_packaging/tree/master/package_example)
+     * creating a example of a basic package to work on local system.
+     
+2. [creating_source_distribution_package](https://github.com/SurajKande/python_packaging/tree/master/create_source_distribution_package)
+     * irt contains a basic example of how to create a basic source distribution package
+
+3. [creating_build_distribution_package](https://github.com/SurajKande/python_packaging/tree/master/creating_build_distribution)
+     * irt contains a basic example of how to create a basic source distribution package
+     
+
 # how to create a basic package:
 [example_of a_sample_package](https://github.com/SurajKande/python_packaging/tree/master/package_example)
 
