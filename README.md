@@ -4,25 +4,41 @@ this repository is based on how to create packages and distribute the pacakges.
 # what is packaging
 A python package is a directory of python modules( python files are also modules) with a file named __init__.py
 
-### example of package structure:
+# Python modules
+A Python file, provided it only relies on the standard library, can be redistributed and reused. You will also need to ensure it’s written for the right version of Python, and only relies on the standard library.
 
+This is great for sharing simple scripts and snippets between people who both have compatible Python versions. There are even some entire Python libraries that offer this as an option, such as [bottle.py](https://bottlepy.org/docs/dev/) and [boltons](https://boltons.readthedocs.io/en/latest/architecture.html#architecture)
+
+# why packaging
+How to share these modules between people, it becomes harder to share every single file seperately, it’s usually organized into a directory structure. f your code consists of multiple Python files Any directory containing Python files can comprise an package.
+
+### example of package structure:
    ![example1](https://www.python-course.eu/images/packages.png)
  
-
 ### real time example of a project package of creating a game:
  
    ![example of package](https://cdn.programiz.com/sites/tutorial2program/files/PackageModuleStructure.jpg)
 - an alternate for packaging, you should [freeze your application](https://docs.python-guide.org/shipping/freezing/#freezing-your-code-ref)
 
 ## Table of Contents:
-1. [package_example](https://github.com/SurajKande/python_packaging/tree/master/package_example)
-     * creating a example of a basic package to work on local system.
+1. [package_example](https://github.com/SurajKande/python_packaging/tree/master/package_example): creating a example of a basic package to work on local system.
+     * main.py : it is a python module where sample_package is being imported
+     * sample_package: a local package which contains differnet modules 
+            - __init__.py : it is a initialization file which acts as starting point for the package
+            - module1.py  : python module contains some code
+            - module2.py  : python module contains some code
      
-2. [creating_source_distribution_package](https://github.com/SurajKande/python_packaging/tree/master/create_source_distribution_package)
-     * irt contains a basic example of how to create a basic source distribution package
+2. [creating_source_distribution_package](https://github.com/SurajKande/python_packaging/tree/master/create_source_distribution_package): it contains a basic example of how to create a basic source distribution package
+     * setup.py    :  it contains the information about the package
+     * addition.py :  it is the package to be distributed 
+            - __init__.py : initialization file of the package 
+            - addition.py : it the module to be distributed by creating a package of it
 
-3. [creating_build_distribution_package](https://github.com/SurajKande/python_packaging/tree/master/creating_build_distribution)
-     * irt contains a basic example of how to create a basic source distribution package
+3. [creating_build_distribution_package](https://github.com/SurajKande/python_packaging/tree/master/creating_build_distribution):it contains a basic example of how to create a basic source distribution package
+     * setup.py    :  it contains the information about the package
+     * addition.py :  it is the package to be distributed 
+            - __init__.py : initialization file of the package 
+            - addition.py : it the module to be distributed by creating a package of it
      
 
 # how to create a basic package:
@@ -400,8 +416,10 @@ We can now push the example-1.0.tar.gz from above to our staging index:
 > This will determine all files on our testuser/dev index belonging to the specified example==1.0 release and copy them to the testuser/staging index.
 
 
+# GLOSSARY
 
+1. [setup.py]() : setup.py is a python file, which usually tells you that the module/package you are about to install has been packaged and distributed with Distutils or setuptools
 
+2. Distutils :  standard for distributing Python Modules.
 
-
-
+3. setuptools:  standard for distributing Python Modules.
