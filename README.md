@@ -330,4 +330,78 @@ DevPI is a PyPI-compatible server you can run locally. It will not, and does not
 * devpi-web: plugin for devpi-server that provides a web and search interface
 * devpi-client: command line tool with sub commands for creating users, using indexes, uploading to and installing from indexes, as well as a “test” command for invoking tox.
 
+We want to run the full devpi system on our laptop:
+`$ pip install -U devpi-web devpi-client`
+> Note: that the devpi-web package will pull in the core devpi-server package. If you don’t want a web interface you can just install the latter only.
+
+So let’s first initialize devpi-server:
+`$ devpi-init`
+
+To start devpi-server in the background we use supervisor as an example. First we create the config file for it:
+`$ devpi-gen-config`
+
+Then we start supervisord using a config which includes the generated file
+`$ supervisord -c gen-config/supervisord.conf`
+
+Then we point the devpi client to it:
+`$ devpi use http://localhost:3141`
+
+Then we add our own user
+`$ devpi user -c testuser password=123`
+
+Then we login:
+`$ devpi login testuser --password=123`
+
+And create a “dev” index, telling it to use the root/pypi cache as a base so that all of pypi.org packages will appear on that index:
+`$ devpi index -c dev bases=root/pypi`
+
+Finally we use the new index:
+`$ devpi use testuser/dev`
+
+We can now use the devpi command line client to trigger a pip install of a pypi package using the index from our already running server:
+`$ devpi install pytest`
+> NOTE: The devpi install command configured a pip call, using the pypi-compatible +simple/ page on THE testuser/dev index for finding and downloading packages. The pip executable was searched in the PATH and found in docenv/bin/pip.
+
+We are going to use devpi command line tool facilities for performing uploads
+Now go to the directory of a setup.py file of one of your projects (we assume it is named example) to build and upload your package to our testuser/dev index:
+`example $ devpi upload`
+
+> There are three triggered actions:
+
+  * detection of a VCS (git/hg/svn/bazaar) repository, leading to copying all versioned files to a temporary work dir. If you are not using mercurial, the copy-step is skipped and the upload operates directly on your source tree.
+
+  * registering the example release as defined in setup.py to our current index
+
+  * building and uploading a gztar formatted release file from the workdir to the current index (using a setup.py invocation under the hood).
+
+We can now install the freshly uploaded package:
+`$ devpi install example`
+
+> NOTE: devpi upload allows to simultanously upload multiple different formats of your release files such as sdist.zip or bdist_egg. The default is sdist.tgz.
+
+If you have a package which uses tox for testing you may now invoke:
+`$ devpi test example  # package needs to contain tox.ini`
+
+> Here is what happened:
+
+  * devpi got the latest available version of example from the current index
+
+  * it unpacked it to a temp dir, found the tox.ini and then invoked tox, pointing it to our example-1.0.tar.gz, forcing all installations to go through our current testuser/dev/+simple/ index and instructing it to create a json report.
+
+  * after all tests ran, we send the toxreport.json to the devpi server where it will be attached precisely to our release file.
+
+Once you are happy with a release file you can push it either to another devpi-managed index or to an outside pypi index server.
+Let’s create another staging index:
+   `$ devpi index -c staging volatile=False`
+> We created a [non-volatile index](https://devpi.net/docs/devpi/devpi/stable/+doc/userman/devpi_concepts.html#non-volatile-indexes) which means that one can not overwrite or delete release files.
+
+We can now push the example-1.0.tar.gz from above to our staging index:
+`$ devpi push example==1.0 testuser/staging`
+> This will determine all files on our testuser/dev index belonging to the specified example==1.0 release and copy them to the testuser/staging index.
+
+
+
+
+
+
 
