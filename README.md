@@ -423,3 +423,8 @@ We can now push the example-1.0.tar.gz from above to our staging index:
 2. Distutils :  standard for distributing Python Modules.
 
 3. setuptools:  standard for distributing Python Modules.
+
+***conten to add***
+1. MANIFEST.IN
+2. setup.py , setup() attributes
+3. 
