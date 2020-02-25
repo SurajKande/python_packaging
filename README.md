@@ -128,18 +128,76 @@ The Python Packaging User Guide recommendations of tools for package creation an
          or: setup.py --help [cmd1 cmd2 ...]
          or: setup.py --help-commands
          or: setup.py cmd --help
-         
-      1. NAME: is the name of the package. This can be any name as long as only contains letters, numbers, _ , and -. It also must not already taken on pypi.org.
-      2. VERSION: is the package version
-      3. AUTHOR and AUTHOE_EMAIL are used to identify the author of the package.
-      4. <uppercase>description</uppercase> is a short, one-sentence summary of the package.
-      5. long_description is a detailed description of the package. This is shown on the package detail package on the Python Package Index. In this case, the long description is loaded from README.md which is a common pattern.
-      long_description_content_type tells the index what type of markup is used for the long description. In this case, it’s Markdown.
-      6. url is the URL for the homepage of the project.
-      7. packages is a list of all Python import packages that should be included in the distribution package. Instead of listing each package manually, we can use find_packages() to automatically discover all packages and subpackages.
-      8. classifiers tell the index and pip some additional metadata about your package. https://pypi.org/classifiers/.
-      9. namespace_packages see Python - Namespace Package
 
+where:
+***name*** is the name of the package. This can be any name as long as only contains letters, numbers, _ , and -. It also must not already taken on pypi.org.
+***version*** is the package version
+***author*** and ***author_email*** are used to identify the author of the package.
+***description*** is a short, one-sentence summary of the package.
+***long_description*** is a detailed description of the package. This is shown on the package detail package on the Python Package Index. In this case, the long description is loaded from README.md which is a common pattern.
+***long_description_content_type*** tells the index what type of markup is used for the long description. In this case, it’s Markdown.
+***url*** is the URL for the homepage of the project.
+***packages*** is a list of all Python import packages that should be included in the distribution package. Instead of listing each package manually, we can use find_packages() to automatically discover all packages and subpackages.
+***classifiers*** tell the index and pip some additional metadata about your package. https://pypi.org/classifiers/.
+***namespace_packages*** see Python - Namespace Package
+
+### setup.cfg:
+  * The setup.cfg file contains default options for commands of the setup.py script. This is very useful if the process for building and distributing the package is more complex and requires many optional arguments to be passed to the setup.py script commands.
+  
+  * This setup.cfg file allows you to store such default parameters together with your source code on a per project basis. This will make your distribution flow independent from the project and also provides transparency about how your package was built/distributed to the users and other team members.
+  
+an example of the setup.cfg configuration file that provides some global, sdist, and bdist_wheel commands defaults:
+`[global] 
+ quiet=1 
+ 
+ [sdist] 
+ formats=zip,tar 
+
+ [bdist_wheel] 
+ universal=1`
+
+### MANIFEST.in:
+   By default distutils will include the following:
+1. All Python source files implied by the py_modules, packages, and scripts arguments
+2. All C source files listed in the ext_modules argument
+3. Files that match the glob pattern test/test*.py
+4. Files named README, README.txt, setup.py, and setup.cfg
+
+the sdist will create a MANIFEST file that lists all files and will include them in the final archive.
+
+Let's say you are not using any extra extensions, and you need to include in your package distribution some files that are not captured by default. You can define a template called MANIFEST.in in your package root directory (the same directory as setup.py file). This template directs the sdist command on which files to include.
+
+This MANIFEST.in template defines one inclusion or exclusion rule per line:
+1. include HISTORY.txt 
+2. include README.txt 
+3. include CHANGES.txt 
+4. include CONTRIBUTORS.txt 
+5. include LICENSE 
+6. recursive-include *.txt *.py
+
+### Classifers:
+Each project's maintainers provide PyPI with a list of "trove classifiers" to categorize each release, describing who it's for, what systems it can run on, and how mature it is.
+
+These standardized classifiers can then be used by community members to find projects based on their desired criteria.
+Currently, there are 667 classifiers available on PyPI that are grouped into the following nine major categories:
+- Development status
+- Environment
+- Framework
+- Intended audience
+- License
+- Natural language
+- Operating system
+- Programming language
+- Topic
+
+### Managing Dependencies:
+Many projects require some external packages to be installed in order to work properly. When the list of dependencies is very long, it becomes difficult to manage it. Keep it simple and provide the list of dependencies explicitly in your setup.py script using install_requires.
+`from setuptools import setup
+ setup( 
+    name='some-package', 
+    install_requires=['falcon', 'requests', 'delorean']  # to list dependencies
+    # ... 
+)`
 # creating packages for distribution:
 
    1. ### ***source distribution (sdist):***
