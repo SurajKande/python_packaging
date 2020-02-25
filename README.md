@@ -1,26 +1,7 @@
 # python Packaging
 this repository is based on how to create packages and distribute the pacakges.  
 
-# what is packaging
-A python package is a directory of python modules( python files are also modules) with a file named __init__.py
-
-# Python modules
-A Python file, provided it only relies on the standard library, can be redistributed and reused. You will also need to ensure it’s written for the right version of Python, and only relies on the standard library.
-
-This is great for sharing simple scripts and snippets between people who both have compatible Python versions. There are even some entire Python libraries that offer this as an option, such as [bottle.py](https://bottlepy.org/docs/dev/) and [boltons](https://boltons.readthedocs.io/en/latest/architecture.html#architecture)
-
-# why packaging
-How to share these modules between people, it becomes harder to share every single file seperately, it’s usually organized into a directory structure. f your code consists of multiple Python files Any directory containing Python files can comprise an package.
-
-### example of package structure:
-   ![example1](https://www.python-course.eu/images/packages.png)
- 
-### real time example of a project package of creating a game:
- 
-   ![example of package](https://cdn.programiz.com/sites/tutorial2program/files/PackageModuleStructure.jpg)
-- an alternate for packaging, you should [freeze your application](https://docs.python-guide.org/shipping/freezing/#freezing-your-code-ref)
-
-## Table of Contents:
+# Contents of repository:
 1. [package_example](https://github.com/SurajKande/python_packaging/tree/master/package_example): creating a example of a basic package to work on local system.
      * main.py : it is a python module where sample_package is being imported
      * sample_package: a local package which contains differnet modules 
@@ -39,7 +20,30 @@ How to share these modules between people, it becomes harder to share every sing
      * addition.py :  it is the package to be distributed 
             - __init__.py : initialization file of the package 
             - addition.py : it the module to be distributed by creating a package of it
-     
+            
+4. readme.md: file contains the details on packaging.     
+
+
+# what is packaging
+   A package is basically a collection of Python modules. Packages are a way of structuring both, multiple packages as well as modules which eventually leads to a well-organized hierarchy of data set, making the directories and modules easy to access.
+      * has a file named __init__.py
+   
+# Python modules
+   A Python file, provided it only relies on the standard library, can be redistributed and reused. You will also need to ensure it’s written for the right version of Python, and only relies on the standard library.
+
+This is great for sharing simple scripts and snippets between people who both have compatible Python versions. There are even some entire Python libraries that offer this as an option, such as [bottle.py](https://bottlepy.org/docs/dev/) and [boltons](https://boltons.readthedocs.io/en/latest/architecture.html#architecture)
+
+# why packaging
+   The easiest way to organize the code of big applications is to split them into several packages. This makes the code simpler, easier to understand, maintain, and change. It also maximizes the reusability of your code. Separate packages act as components that can be used in various programs.
+   How to share these modules between people, it becomes harder to share every single file seperately, it’s usually organized into a directory structure. if your code consists of multiple Python files Any directory containing Python files can comprise an package.
+   
+### example of package structure:
+   ![example1](https://www.python-course.eu/images/packages.png)
+ 
+### real time example of a project package of creating a game:
+ 
+   ![example of package](https://cdn.programiz.com/sites/tutorial2program/files/PackageModuleStructure.jpg)
+- an alternate for packaging, you should [freeze your application](https://docs.python-guide.org/shipping/freezing/#freezing-your-code-ref)
 
 # how to create a basic package:
 [example_of a_sample_package](https://github.com/SurajKande/python_packaging/tree/master/package_example)
@@ -54,13 +58,89 @@ How to share these modules between people, it becomes harder to share every sing
 * the package is created which we can use locally by:
       - placing the package in the same root directory of the main code
       - (or) place this package in the lib folder of the main python folder
-
-
+      
 > note: we need to add few more files to make it into a distributed package 
 
-# types of packaging for distribution:
-  
-   Because packages consist of multiple files, they are harder to distribute. Most protocols support transferring only one file at a time (when was the last time you clicked a link and it downloaded multiple files?). It’s easier to get incomplete transfers, and harder to guarantee code integrity at the destination.
+For working with distributed packages. Tools are generally divided into the following two groups:
+Tools for installing packages and Tools for package creation and distribution.
+
+Utilities recommended by PyPA( Python Packaging authority ):
+     -Use pip for installing packages from PyPI.
+     -Use virtualenv or venv for application-level isolation of the Python runtime environment.
+
+The Python Packaging User Guide recommendations of tools for package creation and distribution are as follows:
+     -Use setuptools to define projects and create source distributions.
+     -Use wheels in favour of eggs to create built distributions.
+     -Use twine to upload package distributions to PyPI.
+      
+### setup.py
+   The root directory of a package that has to be distributed contains a setup.py script. It defines all metadata as described in the distutils module. 
+  * Package metadata is expressed as arguments in a call to the standard setup() function.
+  * Despite distutils being the standard library module provided for the purpose of code packaging, it is actually recommended to use the setuptools instead. The setuptools package provides several enhancements over the standard distutils module.
+  * setup.py is a cli( command line interface ).
+  * herefore, the minimum content for this file is as follows:       
+       ```from setuptools import setup, find_packages
+         setup(
+                 name="HelloWorld",
+                 version="0.1",
+                 packages=find_packages(),
+              )```
+
+  `python setup.py --help`
+      Common commands: (see '--help-commands' for more)
+
+        setup.py build      will build the package underneath 'build/'
+        setup.py install    will install the package
+
+      Global options:
+        --verbose (-v)      run verbosely (default)
+        --quiet (-q)        run quietly (turns verbosity off)
+        --dry-run (-n)      don't actually do anything
+        --help (-h)         show detailed help message
+        --no-user-cfg       ignore pydistutils.cfg in your home directory
+        --command-packages  list of packages that provide distutils commands
+
+      Information display options (just display information, ignore any commands)
+        --help-commands     list all available commands
+        --name              print package name
+        --version (-V)      print package version
+        --fullname          print <package name>-<version>
+        --author            print the author's name
+        --author-email      print the author's email address
+        --maintainer        print the maintainer's name
+        --maintainer-email  print the maintainer's email address
+        --contact           print the maintainer's name if known, else the author's
+        --contact-email     print the maintainer's email address if known, else the
+                            author's
+        --url               print the URL for this package
+        --license           print the license of the package
+        --licence           alias for --license
+        --description       print the package description
+        --long-description  print the long package description
+        --platforms         print the list of platforms
+        --classifiers       print the list of classifiers
+        --keywords          print the list of keywords
+        --provides          print the list of packages/modules provided
+        --requires          print the list of packages/modules required
+        --obsoletes         print the list of packages/modules made obsolete
+
+      usage: setup.py [global_opts] cmd1 [cmd1_opts] [cmd2 [cmd2_opts] ...]
+         or: setup.py --help [cmd1 cmd2 ...]
+         or: setup.py --help-commands
+         or: setup.py cmd --help
+         
+      1. NAME: is the name of the package. This can be any name as long as only contains letters, numbers, _ , and -. It also must not already taken on pypi.org.
+      2. VERSION: is the package version
+      3. AUTHOR and AUTHOE_EMAIL are used to identify the author of the package.
+      4. description is a short, one-sentence summary of the package.
+      5. long_description is a detailed description of the package. This is shown on the package detail package on the Python Package Index. In this case, the long description is loaded from README.md which is a common pattern.
+      long_description_content_type tells the index what type of markup is used for the long description. In this case, it’s Markdown.
+      6. url is the URL for the homepage of the project.
+      7. packages is a list of all Python import packages that should be included in the distribution package. Instead of listing each package manually, we can use find_packages() to automatically discover all packages and subpackages.
+      8. classifiers tell the index and pip some additional metadata about your package. https://pypi.org/classifiers/.
+      9. namespace_packages see Python - Namespace Package
+
+# creating packages for distribution:
 
    1. ### ***source distribution (sdist):***
       If code contains nothing but pure Python code, and you know your deployment environment supports your version of Python, then you can use Python’s native packaging tools to create a source distribution package, or sdist for short.
@@ -68,6 +148,15 @@ How to share these modules between people, it becomes harder to share every sing
    Python’s sdists are compressed archives (.tar.gz files) containing one or more packages or modules. If your code is pure-Python, and you only depend on other Python packages
 
    It contains setup.py (which contains information about module/metadata), the source files of module/script (.py files or .c/.cpp for binary modules), data files, etc. 
+   
+   * use the sdist command to create a source distribution. In the simplest case,
+   `python setup.py sdist`
+(assuming you haven’t specified any sdist options in the setup script or config file), sdist creates the archive of the default format for the current platform. The default format is a gzip’ed tar file (.tar.gz) on Unix, and ZIP file on Windows.
+
+   * You can specify as many formats as you like using the --formats option, for example:
+   `python setup.py sdist --formats=gztar,zip`
+   
+   
 
    2. ### ***build distribution (bdist):***
       The result is an archive that is specific to a platform (for example linux-x86_64) and to a version of Python. That can be installed and then used directly by extracting it into the root of your filesystem 
