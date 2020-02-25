@@ -132,7 +132,7 @@ The Python Packaging User Guide recommendations of tools for package creation an
       1. NAME: is the name of the package. This can be any name as long as only contains letters, numbers, _ , and -. It also must not already taken on pypi.org.
       2. VERSION: is the package version
       3. AUTHOR and AUTHOE_EMAIL are used to identify the author of the package.
-      4. description is a short, one-sentence summary of the package.
+      4. <uppercase>description</uppercase> is a short, one-sentence summary of the package.
       5. long_description is a detailed description of the package. This is shown on the package detail package on the Python Package Index. In this case, the long description is loaded from README.md which is a common pattern.
       long_description_content_type tells the index what type of markup is used for the long description. In this case, it’s Markdown.
       6. url is the URL for the homepage of the project.
