@@ -1,23 +1,23 @@
-# python Packaging
-this repository is based on how to create packages and distribute the pacakges.  
+# Python Packaging
+this repository is based on how to create packages and distribute the pacakges.
 
 # Contents of repository:
 1. [package_example](https://github.com/SurajKande/python_packaging/tree/master/package_example): creating a example of a basic package to work on local system.
-     * main.py : it is a python module where sample_package is being imported
-     * sample_package: a local package which contains differnet modules 
+     * **main.py** : it is a python module where sample_package is being imported
+     * **sample_package**: a local package which contains differnet modules 
             - __init__.py : it is a initialization file which acts as starting point for the package
             - module1.py  : python module contains some code
             - module2.py  : python module contains some code
      
 2. [creating_source_distribution_package](https://github.com/SurajKande/python_packaging/tree/master/create_source_distribution_package): it contains a basic example of how to create a basic source distribution package
-     * setup.py    :  it contains the information about the package
-     * addition.py :  it is the package to be distributed 
+     * **setup.py**    :  it contains the information about the package
+     * **addition.py** :  it is the package to be distributed 
             - __init__.py : initialization file of the package 
             - addition.py : it the module to be distributed by creating a package of it
 
 3. [creating_build_distribution_package](https://github.com/SurajKande/python_packaging/tree/master/creating_build_distribution):it contains a basic example of how to create a basic source distribution package
-     * setup.py    :  it contains the information about the package
-     * addition.py :  it is the package to be distributed 
+     * **setup.py**    :  it contains the information about the package
+     * **addition.py** :  it is the package to be distributed 
             - __init__.py : initialization file of the package 
             - addition.py : it the module to be distributed by creating a package of it
             
@@ -141,10 +141,39 @@ where:
 ***classifiers*** tell the index and pip some additional metadata about your package. https://pypi.org/classifiers/.
 ***namespace_packages*** see Python - Namespace Package
 
+### Classifers:
+Each project's maintainers provide PyPI with a list of "trove classifiers" to categorize each release, describing who it's for, what systems it can run on, and how mature it is.
+
+These standardized classifiers can then be used by community members to find projects based on their desired criteria.
+Currently, there are 667 classifiers available on PyPI that are grouped into the following nine major categories:
+- Development status
+- Environment
+- Framework
+- Intended audience
+- License
+- Natural language
+- Operating system
+- Programming language
+- Topic
+
+### Managing Dependencies:
+Many projects require some external packages to be installed in order to work properly. When the list of dependencies is very long, it becomes difficult to manage it. Keep it simple and provide the list of dependencies explicitly in your setup.py script using install_requires.
+`from setuptools import setup
+ setup( 
+    name='some-package', 
+    install_requires=['falcon', 'requests', 'delorean']  # to list dependencies
+    # ... 
+)`
+
 ### setup.cfg:
-  * The setup.cfg file contains default options for commands of the setup.py script. This is very useful if the process for building and distributing the package is more complex and requires many optional arguments to be passed to the setup.py script commands.
+The setup configuration file is a useful middle-ground between the setup script—which, ideally, would be opaque to installers and the command-line to the setup script, which is outside of your control and entirely up to the installer. In fact, setup.cfg are processed after the contents of the setup script, but before the command-line. This has several useful consequences:
+    1. installers can override some of what you put in setup.py by editing setup.cfg
+    2. you can provide non-standard defaults for options that are not easily set in setup.py
+    3. installers can override anything in setup.cfg using the command-line options to setup.py
+    
+ * The setup.cfg file contains default options for commands of the setup.py script. This is very useful if the process for building and distributing the package is more complex and requires many optional arguments to be passed to the setup.py script commands.
   
-  * This setup.cfg file allows you to store such default parameters together with your source code on a per project basis. This will make your distribution flow independent from the project and also provides transparency about how your package was built/distributed to the users and other team members.
+ * This setup.cfg file allows you to store such default parameters together with your source code on a per project basis. This will make your distribution flow independent from the project and also provides transparency about how your package was built/distributed to the users and other team members.
   
 an example of the setup.cfg configuration file that provides some global, sdist, and bdist_wheel commands defaults:
 `[global] 
@@ -175,29 +204,6 @@ This MANIFEST.in template defines one inclusion or exclusion rule per line:
 5. include LICENSE 
 6. recursive-include *.txt *.py
 
-### Classifers:
-Each project's maintainers provide PyPI with a list of "trove classifiers" to categorize each release, describing who it's for, what systems it can run on, and how mature it is.
-
-These standardized classifiers can then be used by community members to find projects based on their desired criteria.
-Currently, there are 667 classifiers available on PyPI that are grouped into the following nine major categories:
-- Development status
-- Environment
-- Framework
-- Intended audience
-- License
-- Natural language
-- Operating system
-- Programming language
-- Topic
-
-### Managing Dependencies:
-Many projects require some external packages to be installed in order to work properly. When the list of dependencies is very long, it becomes difficult to manage it. Keep it simple and provide the list of dependencies explicitly in your setup.py script using install_requires.
-`from setuptools import setup
- setup( 
-    name='some-package', 
-    install_requires=['falcon', 'requests', 'delorean']  # to list dependencies
-    # ... 
-)`
 # creating packages for distribution:
 
    1. ### ***source distribution (sdist):***
