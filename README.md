@@ -210,7 +210,12 @@ an example of the setup.cfg configuration file that provides some global, sdist,
         [bdist_wheel] 
         universal=1
 
-## [MANIFEST.in]():
+## [MANIFEST.in](https://packaging.python.org/guides/using-manifest-in/):
+
+Often packages will need to depend on files which are not .py files: e.g. images, data tables, documentation, etc. Those files need special treatment in order for setuptools to handle them correctly.
+
+The mechanism that provides this is the MANIFEST.in file. This is relatively quite simple: MANIFEST.in is really just a list of relative file paths specifying files or globs to include
+
    By default distutils will include the following:
 1. All Python source files implied by the py_modules, packages, and scripts arguments
 2. All C source files listed in the ext_modules argument
@@ -619,3 +624,4 @@ We can now push the example-1.0.tar.gz from above to our staging index:
 
 4. MANIFEST.IN:
    [reference](https://www.remarkablyrestrained.com/python-setuptools-manifest-in/)
+   [reference2]((https://docs.python.org/2.0/dist/manifest.html))
