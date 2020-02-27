@@ -130,16 +130,27 @@ The Python Packaging User Guide recommendations of tools for package creation an
          or: setup.py cmd --help
 
 where:
+
 ***name*** is the name of the package. This can be any name as long as only contains letters, numbers, _ , and -. It also must not already taken on pypi.org.
+
 ***version*** is the package version
+
 ***author*** and ***author_email*** are used to identify the author of the package.
+
 ***description*** is a short, one-sentence summary of the package.
+
 ***long_description*** is a detailed description of the package. This is shown on the package detail package on the Python Package Index. In this case, the long description is loaded from README.md which is a common pattern.
+
 ***long_description_content_type*** tells the index what type of markup is used for the long description. In this case, it’s Markdown.
+
 ***url*** is the URL for the homepage of the project.
+
 ***packages*** is a list of all Python import packages that should be included in the distribution package. Instead of listing each package manually, we can use find_packages() to automatically discover all packages and subpackages.
+
 ***classifiers*** tell the index and pip some additional metadata about your package. https://pypi.org/classifiers/.
+
 ***namespace_packages*** see Python - Namespace Package
+
 > [new and changed setup keywords](https://setuptools.readthedocs.io/en/latest/setuptools.html#new-and-changed-setup-keywords): All of them are optional; you do not have to supply them unless you need the associated setuptools feature.
 
 ### Classifers:
