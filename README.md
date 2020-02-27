@@ -170,12 +170,13 @@ Currently, there are 667 classifiers available on PyPI that are grouped into the
 
 ### Managing Dependencies:
 Many projects require some external packages to be installed in order to work properly. When the list of dependencies is very long, it becomes difficult to manage it. Keep it simple and provide the list of dependencies explicitly in your setup.py script using install_requires.
-`from setuptools import setup
- setup(
-     name='some-package', 
-     install_requires=['falcon', 'requests', 'delorean']  # to list dependencies
-     # ... 
-    )`
+
+    from setuptools import setup
+     setup(
+             name='some-package', 
+             install_requires=['falcon', 'requests', 'delorean']  # to list dependencies
+             # ... 
+          )
 
 ## [setup.cfg](https://docs.python.org/3/distutils/configfile.html):
 The setup configuration file is a useful middle-ground between the setup scriptâ€”which, ideally, would be opaque to installers and the command-line to the setup script, which is outside of your control and entirely up to the installer. In fact, setup.cfg are processed after the contents of the setup script, but before the command-line. This has several useful consequences:
@@ -184,9 +185,11 @@ The setup configuration file is a useful middle-ground between the setup scriptâ
     3. installers can override anything in setup.cfg using the command-line options to setup.py
     
 The basic syntax of the configuration file is simple:
+
 `[command]
  option=value
  ...`
+ 
  where
     - command is one of the Distutils commands
     - option is one of the options that command supports
