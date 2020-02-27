@@ -160,11 +160,11 @@ Currently, there are 667 classifiers available on PyPI that are grouped into the
 ### Managing Dependencies:
 Many projects require some external packages to be installed in order to work properly. When the list of dependencies is very long, it becomes difficult to manage it. Keep it simple and provide the list of dependencies explicitly in your setup.py script using install_requires.
 `from setuptools import setup
- setup( 
-    name='some-package', 
-    install_requires=['falcon', 'requests', 'delorean']  # to list dependencies
-    # ... 
-)`
+ setup(
+     name='some-package', 
+     install_requires=['falcon', 'requests', 'delorean']  # to list dependencies
+     # ... 
+    )`
 
 ## [setup.cfg](https://docs.python.org/3/distutils/configfile.html):
 The setup configuration file is a useful middle-ground between the setup script—which, ideally, would be opaque to installers and the command-line to the setup script, which is outside of your control and entirely up to the installer. In fact, setup.cfg are processed after the contents of the setup script, but before the command-line. This has several useful consequences:
@@ -176,7 +176,7 @@ The basic syntax of the configuration file is simple:
 `[command]
  option=value
  ...`
-  where
+ where
     - command is one of the Distutils commands
     - option is one of the options that command supports
     
@@ -186,14 +186,15 @@ The basic syntax of the configuration file is simple:
  * This setup.cfg file allows you to store such default parameters together with your source code on a per project basis. This will make your distribution flow independent from the project and also provides transparency about how your package was built/distributed to the users and other team members.
   
 an example of the setup.cfg configuration file that provides some global, sdist, and bdist_wheel commands defaults:
-`[global] 
- quiet=1 
- 
- [sdist] 
- formats=zip,tar 
 
- [bdist_wheel] 
- universal=1`
+        [global] 
+        quiet=1 
+
+        [sdist] 
+        formats=zip,tar 
+
+        [bdist_wheel] 
+        universal=1
 
 ## [MANIFEST.in]():
    By default distutils will include the following:
