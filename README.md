@@ -24,7 +24,7 @@ this repository is based on how to create packages and distribute the pacakges.
 4. readme.md: file contains the details on packaging.     
 
 
-# what is packaging
+# What is packaging
    A package is basically a collection of Python modules. Packages are a way of structuring both, multiple packages as well as modules which eventually leads to a well-organized hierarchy of data set, making the directories and modules easy to access.
       * has a file named __init__.py
    
@@ -33,7 +33,7 @@ this repository is based on how to create packages and distribute the pacakges.
 
 This is great for sharing simple scripts and snippets between people who both have compatible Python versions. There are even some entire Python libraries that offer this as an option, such as [bottle.py](https://bottlepy.org/docs/dev/) and [boltons](https://boltons.readthedocs.io/en/latest/architecture.html#architecture)
 
-# why packaging
+# Why packaging
    The easiest way to organize the code of big applications is to split them into several packages. This makes the code simpler, easier to understand, maintain, and change. It also maximizes the reusability of your code. Separate packages act as components that can be used in various programs.
    How to share these modules between people, it becomes harder to share every single file seperately, it’s usually organized into a directory structure. if your code consists of multiple Python files Any directory containing Python files can comprise an package.
    
@@ -45,7 +45,7 @@ This is great for sharing simple scripts and snippets between people who both ha
    ![example of package](https://cdn.programiz.com/sites/tutorial2program/files/PackageModuleStructure.jpg)
 - an alternate for packaging, you should [freeze your application](https://docs.python-guide.org/shipping/freezing/#freezing-your-code-ref)
 
-# how to create a basic package:
+## how to create a basic package:
 [example_of a_sample_package](https://github.com/SurajKande/python_packaging/tree/master/package_example)
 
    ### steps to create a basic package with some Python modules and submodules:
@@ -73,7 +73,7 @@ The Python Packaging User Guide recommendations of tools for package creation an
      -Use wheels in favour of eggs to create built distributions.
      -Use twine to upload package distributions to PyPI.
       
-### setup.py
+## 1. setup.py
    The root directory of a package that has to be distributed contains a setup.py script. It defines all metadata as described in the distutils module. 
   * Package metadata is expressed as arguments in a call to the standard setup() function.
   * Despite distutils being the standard library module provided for the purpose of code packaging, it is actually recommended to use the setuptools instead. The setuptools package provides several enhancements over the standard distutils module.
@@ -140,6 +140,7 @@ where:
 ***packages*** is a list of all Python import packages that should be included in the distribution package. Instead of listing each package manually, we can use find_packages() to automatically discover all packages and subpackages.
 ***classifiers*** tell the index and pip some additional metadata about your package. https://pypi.org/classifiers/.
 ***namespace_packages*** see Python - Namespace Package
+> [new and changed setup keywords](https://setuptools.readthedocs.io/en/latest/setuptools.html#new-and-changed-setup-keywords): All of them are optional; you do not have to supply them unless you need the associated setuptools feature.
 
 ### Classifers:
 Each project's maintainers provide PyPI with a list of "trove classifiers" to categorize each release, describing who it's for, what systems it can run on, and how mature it is.
@@ -165,11 +166,20 @@ Many projects require some external packages to be installed in order to work pr
     # ... 
 )`
 
-### setup.cfg:
+## [setup.cfg](https://docs.python.org/3/distutils/configfile.html):
 The setup configuration file is a useful middle-ground between the setup script—which, ideally, would be opaque to installers and the command-line to the setup script, which is outside of your control and entirely up to the installer. In fact, setup.cfg are processed after the contents of the setup script, but before the command-line. This has several useful consequences:
     1. installers can override some of what you put in setup.py by editing setup.cfg
     2. you can provide non-standard defaults for options that are not easily set in setup.py
     3. installers can override anything in setup.cfg using the command-line options to setup.py
+    
+The basic syntax of the configuration file is simple:
+`[command]
+ option=value
+ ...`
+  where
+    - command is one of the Distutils commands
+    - option is one of the options that command supports
+    
     
  * The setup.cfg file contains default options for commands of the setup.py script. This is very useful if the process for building and distributing the package is more complex and requires many optional arguments to be passed to the setup.py script commands.
   
@@ -185,7 +195,7 @@ an example of the setup.cfg configuration file that provides some global, sdist,
  [bdist_wheel] 
  universal=1`
 
-### MANIFEST.in:
+## [MANIFEST.in]():
    By default distutils will include the following:
 1. All Python source files implied by the py_modules, packages, and scripts arguments
 2. All C source files listed in the ext_modules argument
@@ -203,6 +213,22 @@ This MANIFEST.in template defines one inclusion or exclusion rule per line:
 4. include CONTRIBUTORS.txt 
 5. include LICENSE 
 6. recursive-include *.txt *.py
+
+there is a library [check_manifest](https://pypi.org/project/check-manifest/) which helps to create MANIFEST.in
+You can ask the script to help you update your MANIFEST.in:
+`$ check-manifest -u -v`
+ 
+ > ***NOTE*** :  If you have your project in source control, the question “which files constitute the source code of this project?”, as opposed to “which files are local to a particular developer’s environment?” is already answered: the files under source control constitute the source code. 
+   This is also the position setuptools seems to take, since it introduced automatic inclusion of files under source control in the then popular SVN in 2005. This behavior was later generalized to be able to support arbitrary version control systems using plugins and the svn-specific implementation was even removed at some point. 
+   If you read this in 2019, your VCS is most likely either git or hg, in which case the package setuptools_scm provides the plugins you need. Add the following incantation to setup.py to ensure that files you have under source control are packaged:
+  ` setup(
+    ...,
+    use_scm_version=True,
+    setup_requires=['setuptools_scm'],
+    ...,
+) `
+And no more need for MANIFEST.in
+
 
 # creating packages for distribution:
 
@@ -245,13 +271,12 @@ This MANIFEST.in template defines one inclusion or exclusion rule per line:
       step5: Python packages are built into distribution packages, which are then uploaded to a server — usually uploaded to the global PyPI server — from which every person can access it and download.
       
       step6: to build the distribution files simply run the following command in the root folder where your setup.py is located:
-      
-              ``` python setup.py sdist bdist_wheel ```               # creates source and build distribution files.
-           
-            > two files are created in the root folder which we’re going to upload.
+   `python setup.py sdist bdist_wheel              # creates source and build distribution files.`
+              two files are created in the dist directory 
 
-
-# publish the package in opensource
+# Distributing the package
+-- 
+## publish the package in opensource:
 If you’re writing an open source Python module and upload its package, **PyPI** (python packaging index) , more properly known as The ***Cheeseshop***, is the place to host it.
 to publish create a distributed package and follow the steps below
  
@@ -266,13 +291,13 @@ to publish create a distributed package and follow the steps below
                   [pypi]
                   username: teapot48
                   password: myPYPIpassword ```
- step3: use twine, a utility for uploading Python packages. Simply run: twine upload dist/* 
+ step3: use twine, a utility for uploading Python packages. Simply run: `twine upload dist/* `
       
  >note: you should see one progress bar as your .whl file is uploaded, and a second when the .tar.gz archive is uploaded, after which the upload will be complete.
 
-# create a private repo for internal or personal use 
+## create a private repo for internal or personal use 
 
-   ## 1. Personal pypi:
+   ### 1. Personal pypi:
    If you want to install packages from a source other than PyPI (say, if your packages are proprietary), you can do it by hosting a        simple HTTP server, running from the directory which holds those packages which need to be installed.
    
    For example, if you want to install a package called MyPackage.tar.gz, and assuming this is your directory structure:
@@ -294,7 +319,7 @@ to publish create a distributed package and follow the steps below
    $ pip install  http://127.0.0.1:9000/MyPackage.tar.gz
    ```
 
-   ## 2. pypi server on local system:
+   ### 2. pypi server on local system:
    [pypiserver](https://pypi.org/project/pypiserver/) is a minimal PyPI compatible server. It can be used to serve a set of packages to    easy_install or pip. It includes helpful features like an administrative command (-U) which will update all its packages to their        latest versions found on PyPI.
    pypiserver > 1.2.x works with Python 2.7 and 3.4+
    
@@ -343,7 +368,7 @@ to publish create a distributed package and follow the steps below
                         password: <some_passwd>
    
       
-   ## 3. pypi server using docker on local system :
+   ### 3. pypi server using docker on local system :
    To run the most recent release of pypiserver with Docker, simply:
    
           docker run pypiserver/pypiserver:latest 
@@ -357,7 +382,7 @@ to publish create a distributed package and follow the steps below
          docker run -p 80:8080 pypiserver/pypiserver:latest
          You can now access your pypiserver at localhost:80 in a web browser.
   
-  ## 4. pypi server on AWS-S3:
+  ### 4. pypi server on AWS-S3:
   There are a few prerequisites when setting up a Python package repository on S3:
 
    * An AWS account.
@@ -379,7 +404,7 @@ to publish create a distributed package and follow the steps below
       ```$ pip install my-project --extra-index-url https://pypi.example.com/```
  [source](https://www.novemberfive.co/blog/opensource-pypi-package-repository-tutorial):
  
-   ## 5. pypi server on AWS EC2:
+   ### 5. pypi server on AWS EC2:
    After setting up the instance on EC2 and successfully able to connect to the instance using SSH
    See if python3 is already pre-installed:
    
@@ -492,7 +517,7 @@ to install packages from your pypi server
    extra-index-url = http://(EC2 IPv4 IP Address):8081/
     trusted-host = (EC2 IPv4 IP Address)`
  
-# dev-pi server
+## dev-pi server
 DevPI is a PyPI-compatible server you can run locally. It will not, and does not try, to scale to PyPI-like levels. In return, running it locally is simple and no frills.
 
 * devpi-server: for serving a pypi.python.org consistent caching index as well as local github-style overlay indexes.
@@ -571,13 +596,11 @@ We can now push the example-1.0.tar.gz from above to our staging index:
 
 # GLOSSARY
 
-1. [setup.py]() : setup.py is a python file, which usually tells you that the module/package you are about to install has been packaged and distributed with Distutils or setuptools
+1. [setup.py](https://setuptools.readthedocs.io/en/latest/setuptools.html#new-and-changed-setup-keywords) : setup.py is a python file, which usually tells you that the module/package you are about to install has been packaged and distributed with Distutils or setuptools
 
 2. Distutils :  standard for distributing Python Modules.
 
 3. setuptools:  standard for distributing Python Modules.
 
-***conten to add***
-1. MANIFEST.IN
-2. setup.py , setup() attributes
-3. 
+4. MANIFEST.IN:
+   [reference](https://www.remarkablyrestrained.com/python-setuptools-manifest-in/)
