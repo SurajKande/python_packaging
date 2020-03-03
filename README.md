@@ -23,7 +23,6 @@ this repository is based on how to create packages and distribute the pacakges.
             
 4. readme.md: file contains the details on packaging.     
 
-
 # What is packaging
    A package is basically a collection of Python modules. Packages are a way of structuring both, multiple packages as well as modules which eventually leads to a well-organized hierarchy of data set, making the directories and modules easy to access.
       * has a file named __init__.py
@@ -49,11 +48,11 @@ This is great for sharing simple scripts and snippets between people who both ha
 [example_of a_sample_package](https://github.com/SurajKande/python_packaging/tree/master/package_example)
 
    ### steps to create a basic package with some Python modules and submodules:
-      step1: create a dictionary, The name of this directory will be the name of the package, which we want to create 
+    step1: create a dictionary, The name of this directory will be the name of the package, which we want to create 
 
-      step2: This directory needs to contain a file with the name "__init__.py". This file can be empty, or it can contain valid Python code. This code will be executed when a package will be imported, so it can be used to initialize a package,
+    step2: This directory needs to contain a file with the name "__init__.py". This file can be empty, or it can contain valid Python code. This code will be executed when a package will be imported, so it can be used to initialize a package,
 
-      step3: Now we can add the Python files and modules into this package 
+    step3: Now we can add the Python files and modules into this package 
 
 * the package is created which we can use locally by:
       - placing the package in the same root directory of the main code
@@ -79,7 +78,7 @@ The Python Packaging User Guide recommendations of tools for package creation an
   * Despite distutils being the standard library module provided for the purpose of code packaging, it is actually recommended to use the setuptools instead. The setuptools package provides several enhancements over the standard distutils module.
   * setup.py is a cli( command line interface ).
   * herefore, the minimum content for this file is as follows:       
-       ```from setuptools import setup, find_packages
+     ``` from setuptools import setup, find_packages
          setup(
                  name="HelloWorld",
                  version="0.1",
@@ -130,7 +129,6 @@ The Python Packaging User Guide recommendations of tools for package creation an
          or: setup.py cmd --help
 
 where:
-
 ***name*** is the name of the package. This can be any name as long as only contains letters, numbers, _ , and -. It also must not already taken on pypi.org.
 
 ***version*** is the package version
@@ -154,7 +152,7 @@ where:
 > [new and changed setup keywords](https://setuptools.readthedocs.io/en/latest/setuptools.html#new-and-changed-setup-keywords): All of them are optional; you do not have to supply them unless you need the associated setuptools feature.
 
 ### Classifers:
-Each project's maintainers provide PyPI with a list of "trove classifiers" to categorize each release, describing who it's for, what systems it can run on, and how mature it is.
+   Each project's maintainers provide PyPI with a list of "trove classifiers" to categorize each release, describing who it's for, what systems it can run on, and how mature it is.
 
 These standardized classifiers can then be used by community members to find projects based on their desired criteria.
 Currently, there are 667 classifiers available on PyPI that are grouped into the following nine major categories:
@@ -170,13 +168,12 @@ Currently, there are 667 classifiers available on PyPI that are grouped into the
 
 ### Managing Dependencies:
 Many projects require some external packages to be installed in order to work properly. When the list of dependencies is very long, it becomes difficult to manage it. Keep it simple and provide the list of dependencies explicitly in your setup.py script using install_requires.
-
-    from setuptools import setup
+   ` from setuptools import setup
      setup(
              name='some-package', 
              install_requires=['falcon', 'requests', 'delorean']  # to list dependencies
              # ... 
-          )
+          )`
 
 ## [setup.cfg](https://docs.python.org/3/distutils/configfile.html):
 The setup configuration file is a useful middle-ground between the setup script—which, ideally, would be opaque to installers and the command-line to the setup script, which is outside of your control and entirely up to the installer. In fact, setup.cfg are processed after the contents of the setup script, but before the command-line. This has several useful consequences:
@@ -344,21 +341,19 @@ to publish create a distributed package and follow the steps below
    [pypiserver](https://pypi.org/project/pypiserver/) is a minimal PyPI compatible server. It can be used to serve a set of packages to    easy_install or pip. It includes helpful features like an administrative command (-U) which will update all its packages to their        latest versions found on PyPI.
    pypiserver > 1.2.x works with Python 2.7 and 3.4+
    
-      step1: Install pypiserver with this command:   
-   `pip install pypiserver`
+     step1: Install pypiserver with this command:   `pip install pypiserver`
        
-      step2: Copy some packages into your ~/packages folder and then get your pypiserver up and running:
-   `pypi-server -p 8080 ~/packages &`   
+     step2: Copy some packages into your ~/packages folder and then get your pypiserver up and running: `pypi-server -p 8080 ~/packages` 
    
-      step3: To download the packages from another system
+     step3: To download the packages from another system
    
              # Download and install hosted packages.
-               pip install --extra-index-url=http://localhost:8080 ... 
+               `pip install --extra-index-url=http://localhost:8080 ...` 
    
              # Search hosted packages.
-               pip search --index http://localhost:8080 ... 
+               `pip search --index http://localhost:8080 ...` 
    
-      >***NOTE***:  pypiserver redirects pip/easy_install to the pypi.org index if it doesn’t have a requested package
+      > NOTE:  pypiserver redirects pip/easy_install to the pypi.org index if it doesn’t have a requested package
    
       step4: to make the pipy server search for the packages in hosted server by adding the following lines
    
@@ -387,18 +382,15 @@ to publish create a distributed package and follow the steps below
    
       
    ### 3. pypi server using docker on local system :
-   To run the most recent release of pypiserver with Docker, simply:
-   
-          docker run pypiserver/pypiserver:latest 
+   To run the most recent release of pypiserver with Docker, simply:   
+          `docker run pypiserver/pypiserver:latest` 
           
    > This starts pypiserver serving packages from the /data/packages directory inside the container, listening on the container port 8080.
 
   The container takes all the same arguments as the normal pypi-server executable, with the exception of the internal container  port (-p), which will always be 8080.
 
   To map port 80 on the host to port 8080 on the container:
-
-         docker run -p 80:8080 pypiserver/pypiserver:latest
-         You can now access your pypiserver at localhost:80 in a web browser.
+         `docker run -p 80:8080 pypiserver/pypiserver:latest     #You can now access your pypiserver at localhost:80 in a web browser.`
   
   ### 4. pypi server on AWS-S3:
   There are a few prerequisites when setting up a Python package repository on S3:
@@ -410,47 +402,47 @@ to publish create a distributed package and follow the steps below
    In your AWS account, you need to setup an S3 bucket configured for website hosting, as well as a Cloudfront distribution for serving the content in your S3 bucket over a secure (HTTPS) connection, which is required by pip (by default).
    
    Install the s3pypi command line tool by running
-       ```$ (sudo) pip install -U s3pypi``` 
+       `$ (sudo) pip install -U s3pypi` 
 
    in your console. If everything goes well, you should be able to run the s3pypi command line tool now:
-       ```$ s3pypi -v```
+       `$ s3pypi -v`
    
    In order to upload your package to your repository, cd to the root directory of your project, and run:
        ```$ s3pypi --bucket pypi.example.com```
    
    Install your packages using pip by pointing the --extra-index-url to your subdomain:
-      ```$ pip install my-project --extra-index-url https://pypi.example.com/```
+      `$ pip install my-project --extra-index-url https://pypi.example.com/`
  [source](https://www.novemberfive.co/blog/opensource-pypi-package-repository-tutorial):
  
    ### 5. pypi server on AWS EC2:
    After setting up the instance on EC2 and successfully able to connect to the instance using SSH
-   See if python3 is already pre-installed:
+   See if python3 is already pre-installed: 
    
-   ```sudo yum list | grep python3```
+   `sudo yum list | grep python3`
    
    If not, install the version you would like to use:
    
-   ```sudo yum install python36```
+   `sudo yum install python36`
    
  * install docker
  
-   ```sudo yum install docker```
+      `sudo yum install docker`
       start the service
       
-      ```sudo service docker start```
+      `sudo service docker start`
       give docker permission to run without using sudo every time
       
-      ```sudo usermod -a -G docker ec2-user```
+      `sudo usermod -a -G docker ec2-user`
       > note: if you chose an ubuntu AMI instead, username would be ubuntu@IPv4Address
       exit the instance to make sure the changes take effect 
       
  * SSH back into the instance and test if the changes have taken effect:
       check if you can run docker without the sudo command
       
-      ```docker info```
+      `docker info`
       if not, debug the previous steps. If so, run a test image
       
-      ```docker run hello-world```
+      `docker run hello-world`
       > you should see a hello message from docker after running the last command
    
  * install docker-compose:
@@ -469,19 +461,19 @@ to publish create a distributed package and follow the steps below
  
    install httpd-tools with yum
    
-   ```sudo yum install httpd-tools```
+   `sudo yum install httpd-tools`
    switch to the user's home directory
    
-   ```cd```
+   `cd`
    make a new directory called auth
    
-   ```mkdir auth```
+   `mkdir auth`
    cd into the auth directory
    
-   ```cd auth```
+   `cd auth`
    create a new .htpasswd file
    
-   ```htpasswd -sc .htpasswd <username>```
+   `htpasswd -sc .htpasswd <username>`
    > it will prompt you to enter a new password. Follow the prompts
    
    > to add users
