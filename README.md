@@ -294,26 +294,25 @@ And no more need for MANIFEST.in
    `python setup.py sdist bdist_wheel              # creates source and build distribution files.`
               two files are created in the dist directory 
 
-# Distributing the package
--- 
-## publish the package in opensource:
-If you’re writing an open source Python module and upload its package, **PyPI** (python packaging index) , more properly known as The ***Cheeseshop***, is the place to host it.
+# Distributing the package 
+    
+   ## publish the package in opensource:
+   If you’re writing an open source Python module and upload its package, **PyPI** (python packaging index) , more properly known as The ***Cheeseshop***, is the place to host it.
 to publish create a distributed package and follow the steps below
  
- step1: create a districution package (as mentioned above )
+    step1: create a districution package (as mentioned above )
  
- step2: to upload you packages to the global PyPI server you’ll have to register to the PyPI website to authenticate with the PyPI
- server save the username and password of PyPI in a text file named ***.pypirc***, commonly placed in your home folder. Create it, and   text it as demonstrated below:
-             ```  [distutils]
-                  index-servers =
-                    pypi
-                    testpypi
-                  [pypi]
+    step2: to upload you packages to the global PyPI server you’ll have to register to the PyPI website to authenticate with the PyPI server save the username and password of PyPI in a text file named ***.pypirc***, commonly placed in your home folder. Create it, and   text it as demonstrated below:
+             `  [distutils]
+                 index-servers =
+                   pypi
+                   testpypi
+                [pypi]
                   username: teapot48
-                  password: myPYPIpassword ```
- step3: use twine, a utility for uploading Python packages. Simply run: `twine upload dist/* ` dist is the folder created which contains the packaged files.
+                  password: myPYPIpassword `
+    step3: use twine, a utility for uploading Python packages. Simply run: `twine upload dist/* ` dist is the folder created which contains the packaged files.
       
- >note: you should see one progress bar as your .whl file is uploaded, and a second when the .tar.gz archive is uploaded, after which the upload will be complete.
+   >note: you should see one progress bar as your .whl file is uploaded, and a second when the .tar.gz archive is uploaded, after which the upload will be complete.
 
 ## create a private repo for internal or personal use 
 
