@@ -1,4 +1,4 @@
-def svm_classifiaction( X_train, X_test, Y_train, Y_test ):
+def svm_classification( X_train, X_test, Y_train, Y_test ):
 	{
 		svm = SVC(kernel = "linear")
 		svm.fit(X_train, Y_train)
