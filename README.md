@@ -303,7 +303,7 @@ to publish create a distributed package and follow the steps below
  step1: create a districution package (as mentioned above )
  
  step2: to upload you packages to the global PyPI server you’ll have to register to the PyPI website to authenticate with the PyPI
- server in a text file named ***.pypirc***, commonly placed in your home folder. Create it, and text it as demonstrated below:
+ server save the username and password of PyPI in a text file named ***.pypirc***, commonly placed in your home folder. Create it, and   text it as demonstrated below:
              ```  [distutils]
                   index-servers =
                     pypi
@@ -311,7 +311,7 @@ to publish create a distributed package and follow the steps below
                   [pypi]
                   username: teapot48
                   password: myPYPIpassword ```
- step3: use twine, a utility for uploading Python packages. Simply run: `twine upload dist/* `
+ step3: use twine, a utility for uploading Python packages. Simply run: `twine upload dist/* ` dist is the folder created which contains the packaged files.
       
  >note: you should see one progress bar as your .whl file is uploaded, and a second when the .tar.gz archive is uploaded, after which the upload will be complete.
 
@@ -321,16 +321,18 @@ to publish create a distributed package and follow the steps below
    If you want to install packages from a source other than PyPI (say, if your packages are proprietary), you can do it by hosting a        simple HTTP server, running from the directory which holds those packages which need to be installed.
    
    For example, if you want to install a package called MyPackage.tar.gz, and assuming this is your directory structure:
-
-   archive
-   MyPackage
-   MyPackage.tar.gz
+   hosting_package   #directory folder
+   
+   MyPackage          #folder inside the directory
+    
+   MyPackage.tar.gz   # package to be shared
+   
    Go to your command prompt and type:
    ```
-   $ cd archive
+   $ cd hosting_package
    $ python -m http.server 9000
    ```
-   This runs a simple HTTP server running on port 9000 and will list all packages (like MyPackage). Now you can install MyPackage using    any Python package installer. Using pip, you would do it like:
+   This runs a simple HTTP server running on port 9000 and will list all packages (like MyPackage). Now you can install MyPackage using    any Python package installer. Using pip:
    ```
    $ pip install --extra-index-url=http://127.0.0.1:9000/ MyPackage
    ```
@@ -343,18 +345,16 @@ to publish create a distributed package and follow the steps below
    [pypiserver](https://pypi.org/project/pypiserver/) is a minimal PyPI compatible server. It can be used to serve a set of packages to    easy_install or pip. It includes helpful features like an administrative command (-U) which will update all its packages to their        latest versions found on PyPI.
    pypiserver > 1.2.x works with Python 2.7 and 3.4+
    
-      step1: Install pypiserver with this command:
-   
-             pip install pypiserver
-             mkdir ~/packages        # Copy packages into this directory.
+      step1: Install pypiserver with this command:   
+   `pip install pypiserver`
+       
       step2: Copy some packages into your ~/packages folder and then get your pypiserver up and running:
-   
-             pypi-server -p 8080 ~/packages &   
+   `pypi-server -p 8080 ~/packages &`   
    
       step3: To download the packages from another system
    
              # Download and install hosted packages.
-               pip install --extra-index-url http://localhost:8080 ... 
+               pip install --extra-index-url=http://localhost:8080 ... 
    
              # Search hosted packages.
                pip search --index http://localhost:8080 ... 
@@ -363,12 +363,11 @@ to publish create a distributed package and follow the steps below
    
       step4: to make the pipy server search for the packages in hosted server by adding the following lines
    
-              ~/.pip/pip.conf:
-   
+              ~/.pip/pip.conf: 
               [global]
-               extra-index-url = http://localhost:8080/simple/
+               extra-index-url=http://localhost:8080/simple/
    
-      step5: to upload the pacakges
+      step5: to upload the pacakges tp PyPI
    
             1. upload using setuptools:
                      create a  ~/.pypirc file
