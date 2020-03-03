@@ -20,8 +20,18 @@ this repository is based on how to create packages and distribute the pacakges.
      * **addition.py** :  it is the package to be distributed 
             - __init__.py : initialization file of the package 
             - addition.py : it the module to be distributed by creating a package of it
-            
-4. readme.md: file contains the details on packaging.     
+
+4. [example_ML_classifiaction_models_package](https://github.com/SurajKande/python_packaging/tree/master/sample_ML_classification_package):it contains a basic example of ML classification which i tried to package 
+     * **setup.py**    :  it contains the information about the package
+     * **classification** :  it is the package to be distributed 
+            - __init__.py : initialization file of the package 
+            -  decision_tree_classifier.py
+            - knn_classifier.py    
+            - logistic_regression.py
+            - svm_classifier.py
+     * [readme.md](https://github.com/SurajKande/python_packaging/blob/master/sample_ML_classification_package/readme.md)      
+     
+5. README.md: file contains the details on packaging.     
 
 # What is packaging
    A package is basically a collection of Python modules. Packages are a way of structuring both, multiple packages as well as modules which eventually leads to a well-organized hierarchy of data set, making the directories and modules easy to access.
