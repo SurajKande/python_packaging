@@ -2,12 +2,13 @@
 this repository is based on how to create packages and distribute the pacakges.
 
 ## Contents of repository:
-1. [package_example](https://github.com/SurajKande/python_packaging/tree/master/package_example): creating a example of a basic package to work on local system.
-  * main.py: it is a python module where sample_package is being imported   
-  * sample_package: a local package which contains differnet modules 
-   -      \_\_init__.py : it is a initialization file which acts as starting point for the package
-   -      module1.py  : python module contains some code
-   -      module2.py  : python module contains some code
+1. [packaging_example](https://github.com/SurajKande/python_packaging/tree/master/package_example): shows the simple package structure 
+    - main.py : file where main code is written 
+    - sample_package_1: coontains the code/function which can be imported into main to py
+      * __init__.py: initilization file of the package
+      * file1.py: its a pytohn module, contains the code 
+      * file2.py: its a python module, contains the code
+    
      
 2. [creating_source_distribution_package](https://github.com/SurajKande/python_packaging/tree/master/create_source_distribution_package): it contains a basic example of how to create a basic source distribution package
      * setup.py:  it contains the information about the package
