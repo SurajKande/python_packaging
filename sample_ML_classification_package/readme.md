@@ -14,7 +14,7 @@ Directory Structure
         
     - setup.py
     
-    - dist                            # to be added 
+    - dist                            
     
         -- wheel file 
         
