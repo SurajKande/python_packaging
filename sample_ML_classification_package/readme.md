@@ -20,7 +20,8 @@ Directory Structure
         
         -- tar.gz file
         
-        
+for installing go to the directory with setup.py and run 'python setup.py sdist bdist_wheel' which will generate a dist folder with both wheel file and tar.gz file 
+
 after installing the package to use the modules:
     from classification import decision_tree_classifier 
 
