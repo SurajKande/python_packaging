@@ -5,7 +5,7 @@ this repository is based on how to create packages and distribute the pacakges.
 1. [packaging_example](https://github.com/SurajKande/python_packaging/tree/master/package_example): shows the simple package structure 
     - main.py : file where main code is written 
     - sample_package_1: coontains the code/function which can be imported into main to py
-      * __init__.py: initilization file of the package
+      * \_\_init__.py: initilization file of the package
       * file1.py: its a pytohn module, contains the code 
       * file2.py: its a python module, contains the code
     
