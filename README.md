@@ -1,30 +1,32 @@
 # Python Packaging
+
 this repository is based on how to create packages and distribute the pacakges.
 
 ## Contents of repository:
+
 1. [packaging_example](https://github.com/SurajKande/python_packaging/tree/master/package_example): shows the simple package structure   
-    * main.py           : file where main code is written 
-    * sample_package_1  : coontains the code/function which can be imported into main to py
+    * **main.py**           : file where main code is written 
+    * **sample_package_1**  : coontains the code/function which can be imported into main to py
       - \_\_init__.py   : initilization file of the package
       - file1.py        : its a pytohn module, contains the code 
       - file2.py        : its a python module, contains the code
     
      
-2. [creating_source_distribution_package](https://github.com/SurajKande/python_packaging/tree/master/create_source_distribution_package): it contains a basic example of how to create a basic source distribution package 
-    - setup.py           :  it contains the information about the package     
-    - addition.py        :  it is the package to be distributed     
+2. [creating_source_distribution_package](https://github.com/SurajKande/python_packaging/tree/master/create_source_distribution_package): it contains a basic example of how to create a basic source distribution of the package 
+    - **setup.py**           :  it contains the information about the package     
+    - **addition.py**        :  it is the package to be distributed     
       * \_\_init__.py    : initialization file of the package 
       * addition.py      : it the module to be distributed by creating a package of it
 
-3. [creating_build_distribution_package](https://github.com/SurajKande/python_packaging/tree/master/creating_build_distribution):it contains a basic example of how to create a basic source distribution package
-     * setup.py          :  it contains the information about the package
-     * addition.py       :  it is the package to be distributed 
+3. [creating_build_distribution_package](https://github.com/SurajKande/python_packaging/tree/master/creating_build_distribution): it contains a basic example of how to create a basic build distribution of the package
+     * **setup.py**          :  it contains the information about the package
+     * **addition.py**       :  it is the package to be distributed 
        * \_\_init__.py   : initialization file of the package 
        * addition.py     : it the module to be distributed by creating a package of it
 
 4. [example_ML_classifiaction_models_package](https://github.com/SurajKande/python_packaging/tree/master/sample_ML_classification_package):it contains a basic example of ML classification which i tried to package 
-     * setup.py   :  it contains the information about the package
-     * classification :  it is the package to be distributed 
+     * **setup.py**   :  it contains the information about the package
+     * **classification** :  it is the package to be distributed 
        - \_\_init__.py : initialization file of the package 
        -  decision_tree_classifier.py
        - knn_classifier.py    
@@ -35,16 +37,20 @@ this repository is based on how to create packages and distribute the pacakges.
 5. README.md: file contains the details on packaging.     
 
 # What is package?
-   A package is a collection of Python modules. Packages are a way of structuring both, modules as well as multiple packages which eventually leads to a well-organized hierarchy of data set, making the directories and modules easy to access.
-      * has a file named __init__.py
+
+A package is a collection of Python modules. Packages are a way of structuring both, modules as well as multiple packages which eventually leads to a well-organized hierarchy of data set, making the directories and modules easy to access.
+
+- has a file named __init__.py
    
 # Python modules
-   A Python file, provided it only relies on the standard library, can be redistributed and reused. You will also need to ensure it’s written for the right version of Python, and only relies on the standard library.
+
+A Python file, provided it only relies on the standard library, can be redistributed and reused. You will also need to ensure it’s written for the right version of Python, and only relies on the standard library.
 
 This is great for sharing simple scripts and snippets between people who both have compatible Python versions. There are even some entire Python libraries that offer this as an option, such as [bottle.py](https://bottlepy.org/docs/dev/) and [boltons](https://boltons.readthedocs.io/en/latest/architecture.html#architecture)
 
-# Why packaging
-   The easiest way to organize the code of big applications is to split them into several packages. This makes the code simpler, easier to understand, maintain, and change. It also maximizes the reusability of your code. Separate packages act as components that can be used in various programs.
+# Why packaging ?
+   
+The easiest way to organize the code of big applications is to split them into several packages. This makes the code simpler, easier to understand, maintain, and change. It also maximizes the reusability of your code. Separate packages act as components that can be used in various programs.
    How to share these modules between people, it becomes harder to share every single file seperately, it’s usually organized into a directory structure. if your code consists of multiple Python files Any directory containing Python files can comprise an package.
    
 ### example of package structure:
@@ -53,12 +59,15 @@ This is great for sharing simple scripts and snippets between people who both ha
 ### real time example of a project package of creating a game:
  
    ![example of package](https://cdn.programiz.com/sites/tutorial2program/files/PackageModuleStructure.jpg)
+	
 - an alternate for packaging, you should [freeze your application](https://docs.python-guide.org/shipping/freezing/#freezing-your-code-ref)
 
 ## how to create a basic package:
+
 [example_of a_sample_package](https://github.com/SurajKande/python_packaging/tree/master/package_example)
 
    ### steps to create a basic package with some Python modules and submodules:
+	
     step1: create a dictionary, The name of this directory will be the name of the package, which we want to create 
 
     step2: This directory needs to contain a file with the name "__init__.py". This file can be empty, or it can contain valid Python code. This code will be executed when a package will be imported, so it can be used to initialize a package,
@@ -66,8 +75,8 @@ This is great for sharing simple scripts and snippets between people who both ha
     step3: Now we can add the Python files and modules into this package 
 
 * the package is created which we can use locally by:
-      - placing the package in the same root directory of the main code
-      - (or) place this package in the lib folder of the main python folder
+  - placing the package in the same root directory of the main code
+  - (or) place this package in the lib folder of the main python folder
       
 > note: we need to add few more files to make it into a distributed package 
 
@@ -84,19 +93,23 @@ The Python Packaging User Guide recommendations of tools for package creation an
      -Use twine to upload package distributions to PyPI.
       
 ## 1. setup.py
-   The root directory of a package that has to be distributed contains a setup.py script. It defines all metadata as described in the distutils module. 
+
+The root directory of a package that has to be distributed contains a setup.py script. It defines all metadata as described in the distutils module. 
   * Package metadata is expressed as arguments in a call to the standard setup() function.
   * Despite distutils being the standard library module provided for the purpose of code packaging, it is actually recommended to use the setuptools instead. The setuptools package provides several enhancements over the standard distutils module.
   * setup.py is a cli( command line interface ).
   * herefore, the minimum content for this file is as follows:       
-     ``` from setuptools import setup, find_packages
+     ``` 
+	  from setuptools import setup, find_packages
          setup(
                  name="HelloWorld",
                  version="0.1",
                  packages=find_packages(),
-              )```
+              )
+      ```
 
   `python setup.py --help`
+  
       Common commands: (see '--help-commands' for more)
 
         setup.py build      will build the package underneath 'build/'
@@ -163,7 +176,8 @@ where:
 > [new and changed setup keywords](https://setuptools.readthedocs.io/en/latest/setuptools.html#new-and-changed-setup-keywords): All of them are optional; you do not have to supply them unless you need the associated setuptools feature.
 
 ### Classifers:
-   Each project's maintainers provide PyPI with a list of "trove classifiers" to categorize each release, describing who it's for, what systems it can run on, and how mature it is.
+
+Each project's maintainers provide PyPI with a list of "trove classifiers" to categorize each release, describing who it's for, what systems it can run on, and how mature it is.
 
 These standardized classifiers can then be used by community members to find projects based on their desired criteria.
 Currently, there are 667 classifiers available on PyPI that are grouped into the following nine major categories:
@@ -178,7 +192,9 @@ Currently, there are 667 classifiers available on PyPI that are grouped into the
 - Topic
 
 ### Managing Dependencies:
+
 Many projects require some external packages to be installed in order to work properly. When the list of dependencies is very long, it becomes difficult to manage it. Keep it simple and provide the list of dependencies explicitly in your setup.py script using install_requires.
+
    ` from setuptools import setup
      setup(
              name='some-package', 
@@ -187,6 +203,7 @@ Many projects require some external packages to be installed in order to work pr
           )`
 
 ## [setup.cfg](https://docs.python.org/3/distutils/configfile.html):
+
 The setup configuration file is a useful middle-ground between the setup script—which, ideally, would be opaque to installers and the command-line to the setup script, which is outside of your control and entirely up to the installer. In fact, setup.cfg are processed after the contents of the setup script, but before the command-line. This has several useful consequences:
     1. installers can override some of what you put in setup.py by editing setup.cfg
     2. you can provide non-standard defaults for options that are not easily set in setup.py
@@ -249,7 +266,8 @@ You can ask the script to help you update your MANIFEST.in:
  > ***NOTE*** :  If you have your project in source control, the question “which files constitute the source code of this project?”, as opposed to “which files are local to a particular developer’s environment?” is already answered: the files under source control constitute the source code. 
    This is also the position setuptools seems to take, since it introduced automatic inclusion of files under source control in the then popular SVN in 2005. This behavior was later generalized to be able to support arbitrary version control systems using plugins and the svn-specific implementation was even removed at some point. 
    If you read this in 2019, your VCS is most likely either git or hg, in which case the package setuptools_scm provides the plugins you need. Add the following incantation to setup.py to ensure that files you have under source control are packaged:
-  ` setup(
+
+` setup(
     ...,
     use_scm_version=True,
     setup_requires=['setuptools_scm'],
@@ -257,27 +275,28 @@ You can ask the script to help you update your MANIFEST.in:
 ) `
 And no more need for MANIFEST.in
 
-
 # creating packages for distribution:
 
-   1. ### ***source distribution (sdist):***
-      If code contains nothing but pure Python code, and you know your deployment environment supports your version of Python, then you can use Python’s native packaging tools to create a source distribution package, or sdist for short.
+1. ### ***source distribution (sdist):***
+
+If code contains nothing but pure Python code, and you know your deployment environment supports your version of Python, then you can use Python’s native packaging tools to create a source distribution package, or sdist for short.
 
    Python’s sdists are compressed archives (.tar.gz files) containing one or more packages or modules. If your code is pure-Python, and you only depend on other Python packages
 
    It contains setup.py (which contains information about module/metadata), the source files of module/script (.py files or .c/.cpp for binary modules), data files, etc. 
    
    * use the sdist command to create a source distribution. In the simplest case,
+	
    `python setup.py sdist`
+	
 (assuming you haven’t specified any sdist options in the setup script or config file), sdist creates the archive of the default format for the current platform. The default format is a gzip’ed tar file (.tar.gz) on Unix, and ZIP file on Windows.
 
    * You can specify as many formats as you like using the --formats option, for example:
    `python setup.py sdist --formats=gztar,zip`
    
-   
+2. ### ***build distribution (bdist):***
 
-   2. ### ***build distribution (bdist):***
-      The result is an archive that is specific to a platform (for example linux-x86_64) and to a version of Python. That can be installed and then used directly by extracting it into the root of your filesystem 
+The result is an archive that is specific to a platform (for example linux-x86_64) and to a version of Python. That can be installed and then used directly by extracting it into the root of your filesystem 
 
    So much of Python’s practical power comes from its ability to integrate with the software ecosystem, in particular libraries written in C, C++, Fortran, Rust, and other languages.
 
@@ -287,25 +306,26 @@ And no more need for MANIFEST.in
 
 # create a distribution package:
 
-   ### steps to create a basic package with some Python modules and submodules:
-      step1: create a dictionary, The name of this directory will be the name of the package, which we want to create. 
-
-      step2: This directory needs to contain a file with the name "__init__.py". This file can be empty, or it can contain valid Python code. This code will be executed when a package will be imported, so it can be used to initialize a package.
-
-      step3: Now add the Python files and modules into this package which are to be distributed.
+### steps to create a basic package with some Python modules and submodules:
       
-      step4: create a setup.py file in the root folder, it acts as the entrypoint to the package as it contains the actual instructions used when building and distributing the package.
-      
-      step5: Python packages are built into distribution packages, which are then uploaded to a server — usually uploaded to the global PyPI server — from which every person can access it and download.
-      
-      step6: to build the distribution files simply run the following command in the root folder where your setup.py is located:
+	step1: create a dictionary, The name of this directory will be the name of the package, which we want to create. 
+	
+	step2: This directory needs to contain a file with the name "__init__.py". This file can be empty, or it can contain valid Python code. This code will be executed when a package will be imported, so it can be used to initialize a package.
+   
+	step3: Now add the Python files and modules into this package which are to be distributed.
+   
+	step4: create a setup.py file in the root folder, it acts as the entrypoint to the package as it contains the actual instructions used when building and distributing the package.
+   
+	step5: Python packages are built into distribution packages, which are then uploaded to a server — usually uploaded to the global PyPI server — from which every person can access it and download.
+   
+	step6: to build the distribution files simply run the following command in the root folder where your setup.py is located:
    `python setup.py sdist bdist_wheel              # creates source and build distribution files.`
-              two files are created in the dist directory 
 
 # Distributing the package 
     
-   ## publish the package in opensource:
-   If you’re writing an open source Python module and upload its package, **PyPI** (python packaging index) , more properly known as The ***Cheeseshop***, is the place to host it.
+## publish the package in opensource:
+   
+If you’re writing an open source Python module and upload its package, **PyPI** (python packaging index) , more properly known as The ***Cheeseshop***, is the place to host it.
 to publish create a distributed package and follow the steps below
  
     step1: create a districution package (as mentioned above )
@@ -324,15 +344,17 @@ to publish create a distributed package and follow the steps below
 
 ## create a private repo for internal or personal use 
 
-   ### 1. Personal pypi:
-   If you want to install packages from a source other than PyPI (say, if your packages are proprietary), you can do it by hosting a        simple HTTP server, running from the directory which holds those packages which need to be installed.
+### 1. Personal pypi:
+	
+If you want to install packages from a source other than PyPI (say, if your packages are proprietary), you can do it by hosting a        simple HTTP server, running from the directory which holds those packages which need to be installed.
    
-   For example, if you want to install a package called MyPackage.tar.gz, and assuming this is your directory structure:
-   hosting_package   #directory folder
+For example, if you want to install a package called MyPackage.tar.gz, and assuming this is your directory structure:
+	
+   hosting_package      # directory folder
    
-   MyPackage          #folder inside the directory
+   MyPackage            # folder inside the directory
     
-   MyPackage.tar.gz   # package to be shared
+   MyPackage.tar.gz     # package to be shared
    
    Go to your command prompt and type:
    ```
@@ -341,69 +363,102 @@ to publish create a distributed package and follow the steps below
    ```
    This runs a simple HTTP server running on port 9000 and will list all packages (like MyPackage). Now you can install MyPackage using    any Python package installer. Using pip:
    ```
-   $ pip install --extra-index-url=http://127.0.0.1:9000/ MyPackage
+   $ pip install --extra-index-url http://127.0.0.1:9000/ MyPackage
    ```
     But if you feel that creating a folder called MyPackage and keeping MyPackage.tar.gz inside that is redundant, you can still install MyPackage using:
    ```
-   $ pip install  http://127.0.0.1:9000/MyPackage.tar.gz
+   $ pip install http://127.0.0.1:9000/MyPackage.tar.gz
    ```
 
-   ### 2. pypi server on local system:
-   [pypiserver](https://pypi.org/project/pypiserver/) is a minimal PyPI compatible server. It can be used to serve a set of packages to    easy_install or pip. It includes helpful features like an administrative command (-U) which will update all its packages to their        latest versions found on PyPI.
+### 2. pypi server on local system:
+	
+[pypiserver](https://pypi.org/project/pypiserver/) is a minimal PyPI compatible server. It can be used to serve a set of packages to    easy_install or pip. It includes helpful features like an administrative command (-U) which will update all its packages to their        latest versions found on PyPI.
    pypiserver > 1.2.x works with Python 2.7 and 3.4+
-   
-     step1: Install pypiserver with this command:   `pip install pypiserver`
+  
+    STEP 1 : Install pypiserver with this command:   `pip install pypiserver`
        
-     step2: Copy some packages into your ~/packages folder and then get your pypiserver up and running: `pypi-server -p 8080 ~/packages` 
+    STEP 2 : Copy some packages into your ~/packages folder and then get your pypiserver up and running: `pypi-server -p 8080 ~/packages` 
    
-     step3: To download the packages from another system
-   
+    STEP 3 : To download the packages from another system
+     
              # Download and install hosted packages.
-               `pip install --extra-index-url=http://localhost:8080 ...` 
-   
+               `pip install --extra-index-url http://localhost:8080 ...` 
+     
              # Search hosted packages.
                `pip search --index http://localhost:8080 ...` 
-   
-      > NOTE:  pypiserver redirects pip/easy_install to the pypi.org index if it doesn’t have a requested package
-   
-      step4: to make the pipy server search for the packages in hosted server by adding the following lines
-   
-              ~/.pip/pip.conf: 
+    > NOTE:  pypiserver redirects pip/easy_install to the pypi.org index if it doesn’t have a requested package
+    
+    Client-Side Configurations:
+    
+    Always specifying the the pypi url on the command line is a bit cumbersome. Since pypiserver redirects pip/easy_install to the pypi.org index if it doesn’t have a requested package, it is a good idea to configure them to always use your local pypi index.
+	
+		For pip command this can be done by setting the environment variable PIP_EXTRA_INDEX_URL in your .bashr/.profile/.zshrc:
+		` export PIP_EXTRA_INDEX_URL=http://localhost:8080/simple/ `
+		
+		or by adding the following lines to ~/.pip/pip.conf:
+			```
+            [global]
+			extra-index-url = http://localhost:8080/simple/
+            ```
+      Instead of copying packages directly to the server’s folder, you may use python tools for the task,
+      e.g. python setup.py sdist bdist_wheel upload
+      
+      to make the pipy server search for the packages in hosted server by adding the following lines to ~/.pip/pip.conf: 
               [global]
                extra-index-url=http://localhost:8080/simple/
+      
+      to upload the pacakges to PyPI using SETUPTOOLS
+                create a  ~/.pypirc file   
+                   [distutils]
+                     index-servers =
+                        pypi
+                        local
    
-      step5: to upload the pacakges tp PyPI
-   
-            1. upload using setuptools:
-                     create a  ~/.pypirc file
-   
-                        [distutils]
-                        index-servers =
-                          pypi
-                          local
-   
-                        [pypi]
+                    [pypi]
                         username:<your_pypi_username>
                         password:<your_pypi_passwd>
    
-                        [local]
+                    [local]
                         repository: http://localhost:8080
                         username: <some_username>
                         password: <some_passwd>
+        
+     Managing the Package Directory
+
+    The pypi-server command has the -U option that searches for updates of available packages. It scans the package directory for available packages and searches on pypi.org for updates. Without further options pypi-server -U will just print a list of commands which must be run in order to get the latest version of each package. Output looks like:
+
+    ```
+    $ ./pypi-server -U
+    checking 106 packages for newer version
+
+    .........u.e...........e..u.............
+    .....e..............................e...
+    ..........................
+
+    no releases found on pypi for PyXML, Pymacs, mercurial, setuptools
+
+    # update raven from 1.4.3 to 1.4.4
+    pip -q install --no-deps  --extra-index-url https://pypi.org/simple/ -d /home/ralf/packages/mirror raven==1.4.4
+
+    # update greenlet from 0.3.3 to 0.3.4
+    pip -q install --no-deps  --extra-index-url https://pypi.org/simple/ -d /home/ralf/packages/mirror greenlet==0.3.4
+    ```
+    
+    It first prints for each package a single character after checking the available versions on pypi. A dot(.) means the package is up-to-date, 'u' means the package can be updated and 'e' means the list of releases on pypi is empty. After that it shows a pip command line which can be used to update a one package. Either copy and paste that or run pypi-server -Ux in order to really execute those commands. You need to have pip installed for that to work however.
+
+    Specifying an additional -u option will also allow alpha, beta and release candidates to be downloaded. Without this option these releases won’t be considered. 
+        
+### 3. pypi server using docker on local system :
    
-      
-   ### 3. pypi server using docker on local system :
-   To run the most recent release of pypiserver with Docker, simply:   
-          `docker run pypiserver/pypiserver:latest` 
-          
-   > This starts pypiserver serving packages from the /data/packages directory inside the container, listening on the container port 8080.
+To run the most recent release of pypiserver with Docker, simply:   ```docker run pypiserver/pypiserver:latest``` 
+ > This starts pypiserver serving packages from the /data/packages directory inside the container, listening on the container port 8080.
 
-  The container takes all the same arguments as the normal pypi-server executable, with the exception of the internal container  port (-p), which will always be 8080.
+The container takes all the same arguments as the normal pypi-server executable, with the exception of the internal container port (-p), which will always be 8080.
 
-  To map port 80 on the host to port 8080 on the container:
-         `docker run -p 80:8080 pypiserver/pypiserver:latest     #You can now access your pypiserver at localhost:80 in a web browser.`
+To map port 80 on the host to port 8080 on the container: 
+`docker run -p 80:8080 pypiserver/pypiserver:latest     #You can now access your pypiserver at localhost:80 in a web browser.`
   
-  ### 4. pypi server on AWS-S3:
+### 4. pypi server on AWS-S3:
   There are a few prerequisites when setting up a Python package repository on S3:
 
    * An AWS account.
@@ -425,70 +480,66 @@ to publish create a distributed package and follow the steps below
       `$ pip install my-project --extra-index-url https://pypi.example.com/`
  [source](https://www.novemberfive.co/blog/opensource-pypi-package-repository-tutorial):
  
-   ### 5. pypi server on AWS EC2:
-   After setting up the instance on EC2 and successfully able to connect to the instance using SSH
-   See if python3 is already pre-installed: 
+### 5. pypi server on AWS EC2:
    
-   `sudo yum list | grep python3`
+After setting up the instance on EC2 and successfully able to connect to the instance using SSH
+ - See if python3 is already pre-installed: 
+     `sudo yum list | grep python3`
    
-   If not, install the version you would like to use:
+ - If not, install the version you would like to use:
+     `sudo yum install python36`
    
-   `sudo yum install python36`
-   
- * install docker
- 
+ - install docker 
       `sudo yum install docker`
-      start the service
       
+ - start the service     
       `sudo service docker start`
-      give docker permission to run without using sudo every time
       
+      give docker permission to run without using sudo every time
       `sudo usermod -a -G docker ec2-user`
       > note: if you chose an ubuntu AMI instead, username would be ubuntu@IPv4Address
       exit the instance to make sure the changes take effect 
       
  * SSH back into the instance and test if the changes have taken effect:
-      check if you can run docker without the sudo command
       
-      `docker info`
-      if not, debug the previous steps. If so, run a test image
+    - check if you can run docker without the sudo command  
+       `docker info`
       
-      `docker run hello-world`
+    - if not, debug the previous steps. If so, run a test image
+        `docker run hello-world`
       > you should see a hello message from docker after running the last command
    
  * install docker-compose:
-   run the below steps:
+    run the below steps:
    
-       step1: sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null
+       STEP1 : sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null
         
-       step2: sudo chmod +x /usr/local/bin/docker-compose  #give the proper permission for docker-compose
+       STEP2 : sudo chmod +x /usr/local/bin/docker-compose  #give the proper permission for docker-compose
        
-       step3: sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose   #create a symbolic link so you can run docker-compose by just typing docker-compose
+       STEP3 : sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose   #create a symbolic link so you can run docker-compose by just typing docker-compose
        
-       step4: docker-compose --version     # you should see docker-compose version x.xx.x, build xxxxxxx
-   
+       STEP4 : docker-compose --version     # you should see docker-compose version x.xx.x, build xxxxxxx
   
  * to set up a directory to store usernames and passwords that the pypi server will use to authenticate upload or download requests. We used the “htapasswd” package for this.
  
-   install httpd-tools with yum
-   
+   install httpd-tools with yum   
    `sudo yum install httpd-tools`
+   
    switch to the user's home directory
-   
    `cd`
+   
    make a new directory called auth
-   
    `mkdir auth`
+   
    cd into the auth directory
-   
    `cd auth`
-   create a new .htpasswd file
    
+   create a new .htpasswd file
    `htpasswd -sc .htpasswd <username>`
+   
    > it will prompt you to enter a new password. Follow the prompts
    
    > to add users
-   
       `htpasswd -s .htpasswd <NewUsername>`
 
 * create a new docker-compose.yml file with the following contents
@@ -526,12 +577,10 @@ to publish create a distributed package and follow the steps below
 now the private pypi server is up and running on the AWS.
 
 to upload your package to the pypi server created earlier in this guide.
-
-`twine upload --repository-url http://(ec2 IPv4 IP address):8081 dist/*`
+  `twine upload --repository-url http://(ec2 IPv4 IP address):8081 dist/*`
 
 to install packages from your pypi server
-
-`pip install --extra-index-url http://(EC2 IPv4 IP Address):8081 YourPackageName --trusted-host (EC2 IPv4 IP Address)`
+  `pip install --extra-index-url http://(EC2 IPv4 IP Address):8081 YourPackageName --trusted-host (EC2 IPv4 IP Address)`
 
 > If you don’t want to type the extra url and trusted host additions to the pip command, you may set up a .pip directory in your $HOME directory with a file called pip.conf like so:
    `[global]
@@ -539,6 +588,7 @@ to install packages from your pypi server
     trusted-host = (EC2 IPv4 IP Address)`
  
 ## dev-pi server
+
 DevPI is a PyPI-compatible server you can run locally. It will not, and does not try, to scale to PyPI-like levels. In return, running it locally is simple and no frills.
 
 * devpi-server: for serving a pypi.python.org consistent caching index as well as local github-style overlay indexes.
