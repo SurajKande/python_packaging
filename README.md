@@ -2,35 +2,34 @@
 this repository is based on how to create packages and distribute the pacakges.
 
 ## Contents of repository:
-1. [packaging_example](https://github.com/SurajKande/python_packaging/tree/master/package_example): shows the simple package structure 
-    - main.py : file where main code is written 
-    - sample_package_1: coontains the code/function which can be imported into main to py
-      * \_\_init__.py: initilization file of the package
-      * file1.py: its a pytohn module, contains the code 
-      * file2.py: its a python module, contains the code
+1. [packaging_example](https://github.com/SurajKande/python_packaging/tree/master/package_example): shows the simple package structure   
+    * main.py           : file where main code is written 
+    * sample_package_1  : coontains the code/function which can be imported into main to py
+      - \_\_init__.py   : initilization file of the package
+      - file1.py        : its a pytohn module, contains the code 
+      - file2.py        : its a python module, contains the code
     
      
-2. [creating_source_distribution_package](https://github.com/SurajKande/python_packaging/tree/master/create_source_distribution_package): it contains a basic example of how to create a basic source distribution package
-     * setup.py:  it contains the information about the package
-     
-     * addition.py:  it is the package to be distributed 
-      -     \_\_init\_\_.py : initialization file of the package 
-      -     addition.py : it the module to be distributed by creating a package of it
+2. [creating_source_distribution_package](https://github.com/SurajKande/python_packaging/tree/master/create_source_distribution_package): it contains a basic example of how to create a basic source distribution package 
+    - setup.py           :  it contains the information about the package     
+    - addition.py        :  it is the package to be distributed     
+      * \_\_init__.py    : initialization file of the package 
+      * addition.py      : it the module to be distributed by creating a package of it
 
 3. [creating_build_distribution_package](https://github.com/SurajKande/python_packaging/tree/master/creating_build_distribution):it contains a basic example of how to create a basic source distribution package
-     * **setup.py**    :  it contains the information about the package
-     * **addition.py** :  it is the package to be distributed 
-            - __init__.py : initialization file of the package 
-            - addition.py : it the module to be distributed by creating a package of it
+     * setup.py          :  it contains the information about the package
+     * addition.py       :  it is the package to be distributed 
+       * \_\_init__.py   : initialization file of the package 
+       * addition.py     : it the module to be distributed by creating a package of it
 
 4. [example_ML_classifiaction_models_package](https://github.com/SurajKande/python_packaging/tree/master/sample_ML_classification_package):it contains a basic example of ML classification which i tried to package 
-     * **setup.py**    :  it contains the information about the package
-     * **classification** :  it is the package to be distributed 
-            - __init__.py : initialization file of the package 
-            -  decision_tree_classifier.py
-            - knn_classifier.py    
-            - logistic_regression.py
-            - svm_classifier.py
+     * setup.py   :  it contains the information about the package
+     * classification :  it is the package to be distributed 
+       - \_\_init__.py : initialization file of the package 
+       -  decision_tree_classifier.py
+       - knn_classifier.py    
+       - logistic_regression.py
+       - svm_classifier.py
      * [readme.md](https://github.com/SurajKande/python_packaging/blob/master/sample_ML_classification_package/readme.md)      
      
 5. README.md: file contains the details on packaging.     
