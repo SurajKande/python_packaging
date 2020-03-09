@@ -11,6 +11,7 @@ from setuptools import find_packages
 ## Basic information
 NAME         = "ML_models"
 DESCRIPTION  = "creating a package of ML classification model, will printout accuracy"
+VERSION      = "0.0.1"
 AUTHOR       = "abcd"
 EMAIL        = "abcd@abcd.com"
 PACKAGE      = "classification"
@@ -42,6 +43,7 @@ EXCLUDES     = (
 config = {
     "name": NAME,
     "description": DESCRIPTION,
+    "version":VERSION
     "author": AUTHOR,
     "author_email": EMAIL,
     "url": URL,
