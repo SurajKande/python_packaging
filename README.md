@@ -2,7 +2,7 @@
 
 this repository is based on how to create packages and distribute the pacakges.
 
-## Contents of repository:
+### Contents of repository:
 
 1. [packaging_example](https://github.com/SurajKande/python_packaging/tree/master/package_example): shows the simple package structure   
     * **main.py**           : file where main code is written 
@@ -57,42 +57,89 @@ The easiest way to organize the code of big applications is to split them into s
    ![example1](https://www.python-course.eu/images/packages.png)
  
 ### real time example of a project package of creating a game:
- 
    ![example of package](https://cdn.programiz.com/sites/tutorial2program/files/PackageModuleStructure.jpg)
-	
-- an alternate for packaging, you should [freeze your application](https://docs.python-guide.org/shipping/freezing/#freezing-your-code-ref)
 
-## how to create a basic package:
 
+- An alternate for packaging, you should [freeze your application](https://docs.python-guide.org/shipping/freezing/#freezing-your-code-ref)
+
+___
+
+## creating a basic package:
 [example_of a_sample_package](https://github.com/SurajKande/python_packaging/tree/master/package_example)
 
-   ### steps to create a basic package with some Python modules and submodules:
-	
     step1: create a dictionary, The name of this directory will be the name of the package, which we want to create 
 
     step2: This directory needs to contain a file with the name "__init__.py". This file can be empty, or it can contain valid Python code. This code will be executed when a package will be imported, so it can be used to initialize a package,
 
     step3: Now we can add the Python files and modules into this package 
 
-* the package is created which we can use locally by:
-  - placing the package in the same root directory of the main code
+* the package has been created, to import the package, we can:
+  - place the package in the same root directory of the main code
   - (or) place this package in the lib folder of the main python folder
-      
+
 > note: we need to add few more files to make it into a distributed package 
 
-For working with distributed packages. Tools are generally divided into the following two groups:
-Tools for installing packages and Tools for package creation and distribution.
+___
+
+For working with distributed packages, we need few Tools which are generally divided into the following two groups:
+	- Tools for installing packages
+	- Tools for package creation and distribution.
 
 Utilities recommended by PyPA( Python Packaging authority ):
      -Use pip for installing packages from PyPI.
      -Use virtualenv or venv for application-level isolation of the Python runtime environment.
 
-The Python Packaging User Guide recommendations of tools for package creation and distribution are as follows:
+The Python Packaging User Guide recommends few tools for package creation and distribution:
      -Use setuptools to define projects and create source distributions.
-     -Use wheels in favour of eggs to create built distributions.
+     -Use wheels instead of eggs to create built distributions.
      -Use twine to upload package distributions to PyPI.
-      
-## 1. setup.py
+
+## creating package for distribution:
+
+1.***source distribution (sdist):***
+
+If code contains nothing but pure Python code, and you know your deployment environment supports your version of Python, then you can use Python’s native packaging tools to create a source distribution package, or sdist for short.
+
+Python’s sdists are compressed archives (.tar.gz files) containing one or more packages or modules. If your code is pure-Python, and you only depend on other Python packages
+
+It contains setup.py (which contains information about module/metadata), the source files of module/script (.py files or .c/.cpp for binary modules), data files, etc. 
+   
+* use the sdist command to create a source distribution. In the simplest case,
+
+   `python setup.py sdist`
+	
+(assuming you haven’t specified any sdist options in the setup script or config file), sdist creates the archive of the default format for the current platform. The default format is a gzip’ed tar file (.tar.gz) on Unix, and ZIP file on Windows.
+
+* You can specify as many formats as you like using the --formats option, for example:
+
+   `python setup.py sdist --formats=gztar,zip`
+   
+2.***build distribution (bdist):***
+
+The result is an archive that is specific to a platform (for example linux-x86_64) and to a version of Python. That can be installed and then used directly by extracting it into the root of your filesystem 
+
+So much of Python’s practical power comes from its ability to integrate with the software ecosystem, in particular libraries written in C, C++, Fortran, Rust, and other languages.
+
+Not all developers have the right tools or experiences to build these components written in these compiled languages, so Python created the wheel, a package format designed to ship libraries with compiled artifacts. In fact, Python’s package installer, pip, always prefers wheels because installation is always faster, so even pure-Python packages work better with wheels.
+
+[source](https://packaging.python.org/overview/)
+
+#### create a package for distribution:
+	step1: create a dictionary, The name of this directory will be the name of the package, which we want to create. 
+	
+	step2: This directory needs to contain a file with the name "__init__.py". This file can be empty, or it can contain valid Python code. This code will be executed when a package will be imported, so it can be used to initialize a package.
+   
+	step3: Now add the Python files and modules into this package which are to be distributed.
+   
+	step4: create a setup.py file in the root folder, it acts as the entrypoint to the package as it contains the actual instructions used when building and distributing the package.
+   
+	step5: Python packages are built into distribution packages, which are then uploaded to a server — usually uploaded to the global PyPI server — from which every person can access it and download.
+   
+	step6: to build the distribution files simply run the following command in the root folder where your setup.py is located:
+   `python setup.py sdist bdist_wheel              # creates source and build distribution files.`
+
+
+#### 1. setup.py
 
 The root directory of a package that has to be distributed contains a setup.py script. It defines all metadata as described in the distutils module. 
   * Package metadata is expressed as arguments in a call to the standard setup() function.
@@ -153,6 +200,7 @@ The root directory of a package that has to be distributed contains a setup.py s
          or: setup.py cmd --help
 
 where:
+
 ***name*** is the name of the package. This can be any name as long as only contains letters, numbers, _ , and -. It also must not already taken on pypi.org.
 
 ***version*** is the package version
@@ -175,34 +223,36 @@ where:
 
 > [new and changed setup keywords](https://setuptools.readthedocs.io/en/latest/setuptools.html#new-and-changed-setup-keywords): All of them are optional; you do not have to supply them unless you need the associated setuptools feature.
 
-### Classifers:
+   ##### Classifers:
+   
+   Each project's maintainers provide PyPI with a list of "trove classifiers" to categorize each release, describing who it's for, what systems it can run on, and how mature it is.
+   
+   These standardized classifiers can then be used by community members to find projects based on their desired criteria. Currently, there are 667 classifiers available on PyPI that are grouped into the following nine major categories:
 
-Each project's maintainers provide PyPI with a list of "trove classifiers" to categorize each release, describing who it's for, what systems it can run on, and how mature it is.
+ - Development status
+ - Environment
+ - Framework
+ - Intended audience
+ - License
+ - Natural language
+ - Operating system
+ - Programming language
+ - Topic
 
-These standardized classifiers can then be used by community members to find projects based on their desired criteria.
-Currently, there are 667 classifiers available on PyPI that are grouped into the following nine major categories:
-- Development status
-- Environment
-- Framework
-- Intended audience
-- License
-- Natural language
-- Operating system
-- Programming language
-- Topic
+   ##### Managing Dependencies:
+   
+   Many projects require some external packages to be installed in order to work properly. When the list of dependencies is very long, it becomes difficult to manage it. Keep it simple and provide the list of dependencies explicitly in your setup.py script using install_requires.
 
-### Managing Dependencies:
+   ``` 
+   from setuptools import setup
+    	 setup(
+             	name='some-package', 
+             	install_requires=['falcon', 'requests', 'delorean']  # to list dependencies
+             	# ... 
+              )
+    ```
 
-Many projects require some external packages to be installed in order to work properly. When the list of dependencies is very long, it becomes difficult to manage it. Keep it simple and provide the list of dependencies explicitly in your setup.py script using install_requires.
-
-   ` from setuptools import setup
-     setup(
-             name='some-package', 
-             install_requires=['falcon', 'requests', 'delorean']  # to list dependencies
-             # ... 
-          )`
-
-## [setup.cfg](https://docs.python.org/3/distutils/configfile.html):
+#### 2. [setup.cfg](https://docs.python.org/3/distutils/configfile.html):
 
 The setup configuration file is a useful middle-ground between the setup script—which, ideally, would be opaque to installers and the command-line to the setup script, which is outside of your control and entirely up to the installer. In fact, setup.cfg are processed after the contents of the setup script, but before the command-line. This has several useful consequences:
     1. installers can override some of what you put in setup.py by editing setup.cfg
@@ -235,7 +285,7 @@ an example of the setup.cfg configuration file that provides some global, sdist,
         [bdist_wheel] 
         universal=1
 
-## [MANIFEST.in](https://packaging.python.org/guides/using-manifest-in/):
+#### 3. [MANIFEST.in](https://packaging.python.org/guides/using-manifest-in/):
 
 Often packages will need to depend on files which are not .py files: e.g. images, data tables, documentation, etc. Those files need special treatment in order for setuptools to handle them correctly.
 
@@ -261,65 +311,19 @@ This MANIFEST.in template defines one inclusion or exclusion rule per line:
 
 there is a library [check_manifest](https://pypi.org/project/check-manifest/) which helps to create MANIFEST.in
 You can ask the script to help you update your MANIFEST.in:
-`$ check-manifest -u -v`
+```$ check-manifest -u -v```
  
- > ***NOTE*** :  If you have your project in source control, the question “which files constitute the source code of this project?”, as opposed to “which files are local to a particular developer’s environment?” is already answered: the files under source control constitute the source code. 
-   This is also the position setuptools seems to take, since it introduced automatic inclusion of files under source control in the then popular SVN in 2005. This behavior was later generalized to be able to support arbitrary version control systems using plugins and the svn-specific implementation was even removed at some point. 
-   If you read this in 2019, your VCS is most likely either git or hg, in which case the package setuptools_scm provides the plugins you need. Add the following incantation to setup.py to ensure that files you have under source control are packaged:
-
-` setup(
-    ...,
-    use_scm_version=True,
-    setup_requires=['setuptools_scm'],
-    ...,
-) `
+ > If you have your project in source control, the question “which files constitute the source code of this project?”, as opposed to “which files are local to a particular developer’s environment?” is already answered: the files under source control constitute the source code. 
+   - This is also the position setuptools seems to take, since it introduced automatic inclusion of files under source control in the then popular SVN in 2005. This behavior was later generalized to be able to support arbitrary version control systems using plugins and the svn-specific implementation was even removed at some point. 
+   -  If you read this in 2019, your VCS is most likely either git or hg, in which case the package setuptools_scm provides the plugins you need. Add the following incantation to setup.py to ensure that files you have under source control are packaged:
+   ``` setup(
+  		...,
+    		use_scm_version=True,
+    		setup_requires=['setuptools_scm'],
+    		...,
+		)
+```
 And no more need for MANIFEST.in
-
-# creating packages for distribution:
-
-1. ### ***source distribution (sdist):***
-
-If code contains nothing but pure Python code, and you know your deployment environment supports your version of Python, then you can use Python’s native packaging tools to create a source distribution package, or sdist for short.
-
-   Python’s sdists are compressed archives (.tar.gz files) containing one or more packages or modules. If your code is pure-Python, and you only depend on other Python packages
-
-   It contains setup.py (which contains information about module/metadata), the source files of module/script (.py files or .c/.cpp for binary modules), data files, etc. 
-   
-   * use the sdist command to create a source distribution. In the simplest case,
-	
-   `python setup.py sdist`
-	
-(assuming you haven’t specified any sdist options in the setup script or config file), sdist creates the archive of the default format for the current platform. The default format is a gzip’ed tar file (.tar.gz) on Unix, and ZIP file on Windows.
-
-   * You can specify as many formats as you like using the --formats option, for example:
-   `python setup.py sdist --formats=gztar,zip`
-   
-2. ### ***build distribution (bdist):***
-
-The result is an archive that is specific to a platform (for example linux-x86_64) and to a version of Python. That can be installed and then used directly by extracting it into the root of your filesystem 
-
-   So much of Python’s practical power comes from its ability to integrate with the software ecosystem, in particular libraries written in C, C++, Fortran, Rust, and other languages.
-
-   Not all developers have the right tools or experiences to build these components written in these compiled languages, so Python created the wheel, a package format designed to ship libraries with compiled artifacts. In fact, Python’s package installer, pip, always prefers wheels because installation is always faster, so even pure-Python packages work better with wheels.
-
-[source](https://packaging.python.org/overview/)
-
-# create a distribution package:
-
-### steps to create a basic package with some Python modules and submodules:
-      
-	step1: create a dictionary, The name of this directory will be the name of the package, which we want to create. 
-	
-	step2: This directory needs to contain a file with the name "__init__.py". This file can be empty, or it can contain valid Python code. This code will be executed when a package will be imported, so it can be used to initialize a package.
-   
-	step3: Now add the Python files and modules into this package which are to be distributed.
-   
-	step4: create a setup.py file in the root folder, it acts as the entrypoint to the package as it contains the actual instructions used when building and distributing the package.
-   
-	step5: Python packages are built into distribution packages, which are then uploaded to a server — usually uploaded to the global PyPI server — from which every person can access it and download.
-   
-	step6: to build the distribution files simply run the following command in the root folder where your setup.py is located:
-   `python setup.py sdist bdist_wheel              # creates source and build distribution files.`
 
 # Distributing the package 
     
