@@ -466,7 +466,8 @@ To run the most recent release of pypiserver with Docker, simply:
 
 The container takes all the same arguments as the normal pypi-server executable, with the exception of the internal container port (-p), which will always be 8080.
 
-To map port 80 on the host to port 8080 on the container: 
+To map port 80 on the host to port 8080 on the container:
+
 `docker run -p 80:8080 pypiserver/pypiserver:latest     #You can now access your pypiserver at localhost:80 in a web browser.`
   
 ### 4. pypi server on AWS-S3:
@@ -478,15 +479,19 @@ There are a few prerequisites when setting up a Python package repository on S3:
 In your AWS account, you need to setup an S3 bucket configured for website hosting, as well as a Cloudfront distribution for serving the content in your S3 bucket over a secure (HTTPS) connection, which is required by pip (by default).
    
 - Install the s3pypi command line tool by running 
+
 	`$ (sudo) pip install -U s3pypi` 
 
 - in your console. If everything goes well, you should be able to run the s3pypi command line tool now: 
+
 	`$ s3pypi -v`
    
 - In order to upload your package to your repository, cd to the root directory of your project, and run: 
+
 	```$ s3pypi --bucket pypi.example.com```
  
-- Install your packages using pip by pointing the --extra-index-url to your subdomain: 
+- Install your packages using pip by pointing the --extra-index-url to your subdomain:
+
 	`$ pip install my-project --extra-index-url https://pypi.example.com/`
 	
  [source](https://www.novemberfive.co/blog/opensource-pypi-package-repository-tutorial):
@@ -494,19 +499,24 @@ In your AWS account, you need to setup an S3 bucket configured for website hosti
 ### 5. pypi server on AWS EC2:
    
 After setting up the instance on EC2 and successfully able to connect to the instance using SSH
- - See if python3 is already pre-installed: 
+ - See if python3 is already pre-installed:
+ 
      `sudo yum list | grep python3`
    
  - If not, install the version you would like to use:
+ 
      `sudo yum install python36`
    
  - install docker 
+ 
       `sudo yum install docker`
       
  - start the service     
+ 
       `sudo service docker start`
       
       give docker permission to run without using sudo every time
+      
       `sudo usermod -a -G docker ec2-user`
       > note: if you chose an ubuntu AMI instead, username would be ubuntu@IPv4Address
       exit the instance to make sure the changes take effect 
@@ -514,9 +524,11 @@ After setting up the instance on EC2 and successfully able to connect to the ins
  * SSH back into the instance and test if the changes have taken effect:
       
     - check if you can run docker without the sudo command  
+    
        `docker info`
       
     - if not, debug the previous steps. If so, run a test image
+    
         `docker run hello-world`
       > you should see a hello message from docker after running the last command
    
@@ -534,24 +546,36 @@ After setting up the instance on EC2 and successfully able to connect to the ins
  * to set up a directory to store usernames and passwords that the pypi server will use to authenticate upload or download requests. We used the “htapasswd” package for this.
  
    install httpd-tools with yum   
+   
    `sudo yum install httpd-tools`
    
+   
    switch to the user's home directory
+   
    `cd`
    
+   
    make a new directory called auth
+   
    `mkdir auth`
    
+   
    cd into the auth directory
+   
    `cd auth`
    
+   
    create a new .htpasswd file
+   
    `htpasswd -sc .htpasswd <username>`
+   
    
    > it will prompt you to enter a new password. Follow the prompts
    
    > to add users
+   
       `htpasswd -s .htpasswd <NewUsername>`
+      
 
 * create a new docker-compose.yml file with the following contents
   
@@ -588,12 +612,17 @@ After setting up the instance on EC2 and successfully able to connect to the ins
 now the private pypi server is up and running on the AWS.
 
 to upload your package to the pypi server created earlier in this guide.
+
   `twine upload --repository-url http://(ec2 IPv4 IP address):8081 dist/*`
+  
 
 to install packages from your pypi server
+
   `pip install --extra-index-url http://(EC2 IPv4 IP Address):8081 YourPackageName --trusted-host (EC2 IPv4 IP Address)`
+  
 
 > If you don’t want to type the extra url and trusted host additions to the pip command, you may set up a .pip directory in your $HOME directory with a file called pip.conf like so:
+
    `[global]
    extra-index-url = http://(EC2 IPv4 IP Address):8081/
     trusted-host = (EC2 IPv4 IP Address)`
@@ -607,35 +636,56 @@ DevPI is a PyPI-compatible server you can run locally. It will not, and does not
 * devpi-client: command line tool with sub commands for creating users, using indexes, uploading to and installing from indexes, as well as a “test” command for invoking tox.
 
 We want to run the full devpi system on our laptop:
+
 `$ pip install -U devpi-web devpi-client`
+
 > Note: that the devpi-web package will pull in the core devpi-server package. If you don’t want a web interface you can just install the latter only.
 
 So let’s first initialize devpi-server:
+
 `$ devpi-init`
 
+
 To start devpi-server in the background we use supervisor as an example. First we create the config file for it:
+
 `$ devpi-gen-config`
 
+
 Then we start supervisord using a config which includes the generated file
+
 `$ supervisord -c gen-config/supervisord.conf`
 
+
 Then we point the devpi client to it:
+
 `$ devpi use http://localhost:3141`
 
+
 Then we add our own user
+
 `$ devpi user -c testuser password=123`
 
+
 Then we login:
+
 `$ devpi login testuser --password=123`
 
+
 And create a “dev” index, telling it to use the root/pypi cache as a base so that all of pypi.org packages will appear on that index:
+
 `$ devpi index -c dev bases=root/pypi`
 
+
 Finally we use the new index:
+
 `$ devpi use testuser/dev`
 
+
 We can now use the devpi command line client to trigger a pip install of a pypi package using the index from our already running server:
+
 `$ devpi install pytest`
+
+
 > NOTE: The devpi install command configured a pip call, using the pypi-compatible +simple/ page on THE testuser/dev index for finding and downloading packages. The pip executable was searched in the PATH and found in docenv/bin/pip.
 
 We are going to use devpi command line tool facilities for performing uploads
@@ -643,19 +693,18 @@ Now go to the directory of a setup.py file of one of your projects (we assume it
 `example $ devpi upload`
 
 > There are three triggered actions:
-
   * detection of a VCS (git/hg/svn/bazaar) repository, leading to copying all versioned files to a temporary work dir. If you are not using mercurial, the copy-step is skipped and the upload operates directly on your source tree.
-
   * registering the example release as defined in setup.py to our current index
-
   * building and uploading a gztar formatted release file from the workdir to the current index (using a setup.py invocation under the hood).
 
 We can now install the freshly uploaded package:
+
 `$ devpi install example`
 
 > NOTE: devpi upload allows to simultanously upload multiple different formats of your release files such as sdist.zip or bdist_egg. The default is sdist.tgz.
 
 If you have a package which uses tox for testing you may now invoke:
+
 `$ devpi test example  # package needs to contain tox.ini`
 
 > Here is what happened:
@@ -668,11 +717,15 @@ If you have a package which uses tox for testing you may now invoke:
 
 Once you are happy with a release file you can push it either to another devpi-managed index or to an outside pypi index server.
 Let’s create another staging index:
+
    `$ devpi index -c staging volatile=False`
+   
 > We created a [non-volatile index](https://devpi.net/docs/devpi/devpi/stable/+doc/userman/devpi_concepts.html#non-volatile-indexes) which means that one can not overwrite or delete release files.
 
 We can now push the example-1.0.tar.gz from above to our staging index:
+
 `$ devpi push example==1.0 testuser/staging`
+
 > This will determine all files on our testuser/dev index belonging to the specified example==1.0 release and copy them to the testuser/staging index.
 
 
