@@ -40,7 +40,7 @@ this repository is based on how to create packages and distribute the pacakges.
 
 A package is a collection of Python modules. Packages are a way of structuring both, modules as well as multiple packages which eventually leads to a well-organized hierarchy of data set, making the directories and modules easy to access.
 
-- has a file named __init__.py
+- has a file named \_\_init__.py
    
 # Python modules
 
@@ -388,7 +388,7 @@ For example, if you want to install a package called MyPackage.tar.gz, and assum
                `pip search --index http://localhost:8080 ...` 
     > NOTE:  pypiserver redirects pip/easy_install to the pypi.org index if it doesn’t have a requested package
     
-    Client-Side Configurations:
+    1. Client-Side Configurations:
     
     Always specifying the the pypi url on the command line is a bit cumbersome. Since pypiserver redirects pip/easy_install to the pypi.org index if it doesn’t have a requested package, it is a good idea to configure them to always use your local pypi index.
 	
@@ -423,7 +423,7 @@ For example, if you want to install a package called MyPackage.tar.gz, and assum
                         username: <some_username>
                         password: <some_passwd>
         
-     Managing the Package Directory
+    2. Managing the Package Directory:
 
     The pypi-server command has the -U option that searches for updates of available packages. It scans the package directory for available packages and searches on pypi.org for updates. Without further options pypi-server -U will just print a list of commands which must be run in order to get the latest version of each package. Output looks like:
 
@@ -447,10 +447,21 @@ For example, if you want to install a package called MyPackage.tar.gz, and assum
     It first prints for each package a single character after checking the available versions on pypi. A dot(.) means the package is up-to-date, 'u' means the package can be updated and 'e' means the list of releases on pypi is empty. After that it shows a pip command line which can be used to update a one package. Either copy and paste that or run pypi-server -Ux in order to really execute those commands. You need to have pip installed for that to work however.
 
     Specifying an additional -u option will also allow alpha, beta and release candidates to be downloaded. Without this option these releases won’t be considered. 
+    
+    3. serving thousands of Packages:
+    
+    By default, pypiserver scans the entire packages directory each time an incoming HTTP request occurs. This isn’t a problem for a small number of packages, but causes noticeable slow-downs when serving thousands of packages. 
+    If you run into this problem, significant speedups can be gained by enabling pypiserver’s directory caching functionality. The only requirement is to install the watchdog package, or it can be installed during pypiserver installation, by specifying the cache extras option: 
+    
+    pip install pypiserver[cache]
+    
+    > There are a variety of options for handling the automated starting of pypiserver upon system startup. Two of the most common are systemd and supervis
         
 ### 3. pypi server using docker on local system :
    
-To run the most recent release of pypiserver with Docker, simply:   ```docker run pypiserver/pypiserver:latest``` 
+To run the most recent release of pypiserver with Docker, simply:
+
+```docker run pypiserver/pypiserver:latest``` 
  > This starts pypiserver serving packages from the /data/packages directory inside the container, listening on the container port 8080.
 
 The container takes all the same arguments as the normal pypi-server executable, with the exception of the internal container port (-p), which will always be 8080.
@@ -459,25 +470,25 @@ To map port 80 on the host to port 8080 on the container:
 `docker run -p 80:8080 pypiserver/pypiserver:latest     #You can now access your pypiserver at localhost:80 in a web browser.`
   
 ### 4. pypi server on AWS-S3:
-  There are a few prerequisites when setting up a Python package repository on S3:
-
+There are a few prerequisites when setting up a Python package repository on S3:
    * An AWS account.
    * A domain or subdomain, e.g. pypi.example.com. You should be able to create or modify the DNS record for the (sub)domain you want to use.
    * An SSL certificate for the domain you’re using.
    
-   In your AWS account, you need to setup an S3 bucket configured for website hosting, as well as a Cloudfront distribution for serving the content in your S3 bucket over a secure (HTTPS) connection, which is required by pip (by default).
+In your AWS account, you need to setup an S3 bucket configured for website hosting, as well as a Cloudfront distribution for serving the content in your S3 bucket over a secure (HTTPS) connection, which is required by pip (by default).
    
-   Install the s3pypi command line tool by running
-       `$ (sudo) pip install -U s3pypi` 
+- Install the s3pypi command line tool by running 
+	`$ (sudo) pip install -U s3pypi` 
 
-   in your console. If everything goes well, you should be able to run the s3pypi command line tool now:
-       `$ s3pypi -v`
+- in your console. If everything goes well, you should be able to run the s3pypi command line tool now: 
+	`$ s3pypi -v`
    
-   In order to upload your package to your repository, cd to the root directory of your project, and run:
-       ```$ s3pypi --bucket pypi.example.com```
-   
-   Install your packages using pip by pointing the --extra-index-url to your subdomain:
-      `$ pip install my-project --extra-index-url https://pypi.example.com/`
+- In order to upload your package to your repository, cd to the root directory of your project, and run: 
+	```$ s3pypi --bucket pypi.example.com```
+ 
+- Install your packages using pip by pointing the --extra-index-url to your subdomain: 
+	`$ pip install my-project --extra-index-url https://pypi.example.com/`
+	
  [source](https://www.novemberfive.co/blog/opensource-pypi-package-repository-tutorial):
  
 ### 5. pypi server on AWS EC2:
