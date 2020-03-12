@@ -5,8 +5,8 @@ this repository is based on how to create packages and distribute the pacakges.
 ### Contents of repository:
 
 1. [packaging_example](https://github.com/SurajKande/python_packaging/tree/master/package_example): shows the simple package structure   
-    * **main.py**           : file where main code is written 
-    * **sample_package_1**  : coontains the code/function which can be imported into main to py
+    * **main.py**           : main code is here
+    * **sample_package_1**  : coontains the code/function which can be imported into main.py
       - \_\_init__.py   : initilization file of the package
       - file1.py        : its a pytohn module, contains the code 
       - file2.py        : its a python module, contains the code
@@ -29,9 +29,9 @@ this repository is based on how to create packages and distribute the pacakges.
      * **classification** :  it is the package to be distributed 
        - \_\_init__.py : initialization file of the package 
        -  decision_tree_classifier.py
-       - knn_classifier.py    
-       - logistic_regression.py
-       - svm_classifier.py
+       -  knn_classifier.py    
+       -  logistic_regression.py
+       -  svm_classifier.py
      * [readme.md](https://github.com/SurajKande/python_packaging/blob/master/sample_ML_classification_package/readme.md)      
      
 5. README.md: file contains the details on packaging.     
@@ -69,19 +69,19 @@ ___
 
     step1: create a dictionary, The name of this directory will be the name of the package, which we want to create 
 
-    step2: This directory needs to contain a file with the name "__init__.py". This file can be empty, or it can contain valid Python code. This code will be executed when a package will be imported, so it can be used to initialize a package,
+    step2: This directory needs to contain a file with the name "__init__.py". 
+    	   - This file can be empty, or it can contain valid Python code. 
+	   - This code will be executed when a package will be imported, so it can be used to initialize a package,
 
-    step3: Now we can add the Python files and modules into this package 
+    step3: Now, we can add the Python files and modules into this package 
 
 * the package has been created, to import the package, we can:
   - place the package in the same root directory of the main code
   - (or) place this package in the lib folder of the main python folder
 
-> note: we need to add few more files to make it into a distributed package 
+-------------
 
-___
-
-For working with distributed packages, we need few Tools which are generally divided into the following two groups:
+For working with distributed packages, we need few Tools which are divided into the following two groups:
 	- Tools for installing packages
 	- Tools for package creation and distribution.
 
@@ -98,15 +98,11 @@ The Python Packaging User Guide recommends few tools for package creation and di
 
 1.***source distribution (sdist):***
 
-If code contains nothing but pure Python code, and you know your deployment environment supports your version of Python, then you can use Python’s native packaging tools to create a source distribution package, or sdist for short.
-
 Python’s sdists are compressed archives (.tar.gz files) containing one or more packages or modules. If your code is pure-Python, and you only depend on other Python packages
 
 It contains setup.py (which contains information about module/metadata), the source files of module/script (.py files or .c/.cpp for binary modules), data files, etc. 
    
-* use the sdist command to create a source distribution. In the simplest case,
-
-   `python setup.py sdist`
+* use the sdist command to create a source distribution of the package: `python setup.py sdist`
 	
 (assuming you haven’t specified any sdist options in the setup script or config file), sdist creates the archive of the default format for the current platform. The default format is a gzip’ed tar file (.tar.gz) on Unix, and ZIP file on Windows.
 
@@ -122,22 +118,30 @@ So much of Python’s practical power comes from its ability to integrate with t
 
 Not all developers have the right tools or experiences to build these components written in these compiled languages, so Python created the wheel, a package format designed to ship libraries with compiled artifacts. In fact, Python’s package installer, pip, always prefers wheels because installation is always faster, so even pure-Python packages work better with wheels.
 
+* to create a build distribution of the package: `python setup.py bdist_wheel`
+
 [source](https://packaging.python.org/overview/)
 
-#### create a package for distribution:
-	step1: create a dictionary, The name of this directory will be the name of the package, which we want to create. 
-	
-	step2: This directory needs to contain a file with the name "__init__.py". This file can be empty, or it can contain valid Python code. This code will be executed when a package will be imported, so it can be used to initialize a package.
-   
-	step3: Now add the Python files and modules into this package which are to be distributed.
-   
-	step4: create a setup.py file in the root folder, it acts as the entrypoint to the package as it contains the actual instructions used when building and distributing the package.
-   
-	step5: Python packages are built into distribution packages, which are then uploaded to a server — usually uploaded to the global PyPI server — from which every person can access it and download.
-   
-	step6: to build the distribution files simply run the following command in the root folder where your setup.py is located:
-   `python setup.py sdist bdist_wheel              # creates source and build distribution files.`
+#### Steps to create a package for distribution:
 
+	STEP1: create a dictionary, The name of this directory will be the name of the package, which we want to create. 
+	
+	STEP2: The directory needs to contain a file with the name "__init__.py". 
+	       - This file can be empty, or it can contain valid Python code. 
+	       - This code will be executed when a package will be imported, so it can be used to initialize a package.
+   
+	STEP3: Now add the Python files and modules into this package which are to be distributed.
+   
+	STEP4: create a setup.py file in the root folder,
+	       - it acts as the entrypoint to the package
+	       - it contains the actual instructions used when building and distributing the package.
+   
+	STEP5: Python packages are built into distribution packages, which are then uploaded to a server 
+	       — usually uploaded to the global PyPI server, from which every person can access it and download.
+   
+	STEP6: to build the distribution files simply run the following command in the root folder where your setup.py is located: `python setup.py sdist bdist_wheel              # creates source and build distribution files.`
+
+----------
 
 #### 1. setup.py
 
@@ -146,6 +150,7 @@ The root directory of a package that has to be distributed contains a setup.py s
   * Despite distutils being the standard library module provided for the purpose of code packaging, it is actually recommended to use the setuptools instead. The setuptools package provides several enhancements over the standard distutils module.
   * setup.py is a cli( command line interface ).
   * herefore, the minimum content for this file is as follows:       
+  
      ``` 
 	  from setuptools import setup, find_packages
          setup(
@@ -155,7 +160,7 @@ The root directory of a package that has to be distributed contains a setup.py s
               )
       ```
 
-  `python setup.py --help`
+- for more options enter the command : `python setup.py --help`
   
       Common commands: (see '--help-commands' for more)
 
@@ -254,7 +259,13 @@ where:
 
 #### 2. [setup.cfg](https://docs.python.org/3/distutils/configfile.html):
 
-The setup configuration file is a useful middle-ground between the setup script—which, ideally, would be opaque to installers and the command-line to the setup script, which is outside of your control and entirely up to the installer. In fact, setup.cfg are processed after the contents of the setup script, but before the command-line. This has several useful consequences:
+The setup.cfg file contains default options for commands of the setup.py script. This is very useful if the process for building and distributing the package is more complex and requires many optional arguments to be passed to the setup.py script commands.
+
+ * This setup.cfg file allows you to store such default parameters together with your source code on a per project basis. This will make your distribution flow independent from the project and also provides transparency about how your package was built/distributed to the users and other team members.
+ 
+* The setup configuration file is a useful middle-ground between the setup script—which, ideally, would be opaque to installers and the command-line to the setup script, which is outside of your control and entirely up to the installer.
+
+* setup.cfg are processed after the contents of the setup script, but before the command-line. This has several useful consequences:
     1. installers can override some of what you put in setup.py by editing setup.cfg
     2. you can provide non-standard defaults for options that are not easily set in setup.py
     3. installers can override anything in setup.cfg using the command-line options to setup.py
@@ -268,11 +279,6 @@ The basic syntax of the configuration file is simple:
  where
     - command is one of the Distutils commands
     - option is one of the options that command supports
-    
-    
- * The setup.cfg file contains default options for commands of the setup.py script. This is very useful if the process for building and distributing the package is more complex and requires many optional arguments to be passed to the setup.py script commands.
-  
- * This setup.cfg file allows you to store such default parameters together with your source code on a per project basis. This will make your distribution flow independent from the project and also provides transparency about how your package was built/distributed to the users and other team members.
   
 an example of the setup.cfg configuration file that provides some global, sdist, and bdist_wheel commands defaults:
 
@@ -284,6 +290,7 @@ an example of the setup.cfg configuration file that provides some global, sdist,
 
         [bdist_wheel] 
         universal=1
+
 
 #### 3. [MANIFEST.in](https://packaging.python.org/guides/using-manifest-in/):
 
@@ -314,8 +321,10 @@ You can ask the script to help you update your MANIFEST.in:
 ```$ check-manifest -u -v```
  
  > If you have your project in source control, the question “which files constitute the source code of this project?”, as opposed to “which files are local to a particular developer’s environment?” is already answered: the files under source control constitute the source code. 
-   - This is also the position setuptools seems to take, since it introduced automatic inclusion of files under source control in the then popular SVN in 2005. This behavior was later generalized to be able to support arbitrary version control systems using plugins and the svn-specific implementation was even removed at some point. 
-   -  If you read this in 2019, your VCS is most likely either git or hg, in which case the package setuptools_scm provides the plugins you need. Add the following incantation to setup.py to ensure that files you have under source control are packaged:
+   - This is also the position setuptools seems to take, since it introduced automatic inclusion of files under source control. This behavior was later generalized to be able to support arbitrary version control systems using plugins.
+   
+   -  If you read this in 2019, your VCS is most likely be git, in which case the package [setuptools_scm] provides the plugins you need. Add the following incantation to setup.py to ensure that files you have under source control are packaged:
+   
    ``` setup(
   		...,
     		use_scm_version=True,
@@ -332,9 +341,11 @@ And no more need for MANIFEST.in
 If you’re writing an open source Python module and upload its package, **PyPI** (python packaging index) , more properly known as The ***Cheeseshop***, is the place to host it.
 to publish create a distributed package and follow the steps below
  
-    step1: create a districution package (as mentioned above )
+    STEP1: create a distribution package
  
-    step2: to upload you packages to the global PyPI server you’ll have to register to the PyPI website to authenticate with the PyPI server save the username and password of PyPI in a text file named ***.pypirc***, commonly placed in your home folder. Create it, and   text it as demonstrated below:
+    STEP2: to upload you packages to the global PyPI server you’ll have to register to the PyPI website.
+           - to authenticate with the PyPI server save the username and password of PyPI in a text file named ***.pypirc***, placed in your home folder. Create it, and text it as demonstrated below:
+	   
              `  [distutils]
                  index-servers =
                    pypi
@@ -342,7 +353,9 @@ to publish create a distributed package and follow the steps below
                 [pypi]
                   username: teapot48
                   password: myPYPIpassword `
-    step3: use twine, a utility for uploading Python packages. Simply run: `twine upload dist/* ` dist is the folder created which contains the packaged files.
+		  
+    STEP3: use twine, a utility for uploading Python packages. 
+           - Simply run : `twine upload dist/* `                 # dist is the folder created which contains the packaged files.
       
    >note: you should see one progress bar as your .whl file is uploaded, and a second when the .tar.gz archive is uploaded, after which the upload will be complete.
 
@@ -354,17 +367,18 @@ If you want to install packages from a source other than PyPI (say, if your pack
    
 For example, if you want to install a package called MyPackage.tar.gz, and assuming this is your directory structure:
 	
-   hosting_package      # directory folder
-   
-   MyPackage            # folder inside the directory
-    
-   MyPackage.tar.gz     # package to be shared
+   hosting_package     	        # directory folder
+   |
+   |-- MyPackage                # folder inside the directory
+      |
+      |-- MyPackage.tar.gz      # package to be shared
    
    Go to your command prompt and type:
    ```
    $ cd hosting_package
    $ python -m http.server 9000
    ```
+   
    This runs a simple HTTP server running on port 9000 and will list all packages (like MyPackage). Now you can install MyPackage using    any Python package installer. Using pip:
    ```
    $ pip install --extra-index-url http://127.0.0.1:9000/ MyPackage
@@ -374,7 +388,7 @@ For example, if you want to install a package called MyPackage.tar.gz, and assum
    $ pip install http://127.0.0.1:9000/MyPackage.tar.gz
    ```
 
-### 2. pypi server on local system:
+### 2. Using pypiserver package on local system:
 	
 [pypiserver](https://pypi.org/project/pypiserver/) is a minimal PyPI compatible server. It can be used to serve a set of packages to    easy_install or pip. It includes helpful features like an administrative command (-U) which will update all its packages to their        latest versions found on PyPI.
    pypiserver > 1.2.x works with Python 2.7 and 3.4+
@@ -390,14 +404,17 @@ For example, if you want to install a package called MyPackage.tar.gz, and assum
      
              # Search hosted packages.
                `pip search --index http://localhost:8080 ...` 
+	       
     > NOTE:  pypiserver redirects pip/easy_install to the pypi.org index if it doesn’t have a requested package
     
-    1. Client-Side Configurations:
+      |------------------------------|
+    1.|  Client-Side Configurations  |
+      |------------------------------| 
+      
+    Always specifying the the pypi url on the command line is a bit cumbersome. Since pypiserver redirects pip/easy_install to the pypi.org index if it doesn’t have a requested package, it is a good idea to configure them to always use your local pypi index. 
     
-    Always specifying the the pypi url on the command line is a bit cumbersome. Since pypiserver redirects pip/easy_install to the pypi.org index if it doesn’t have a requested package, it is a good idea to configure them to always use your local pypi index.
-	
-		For pip command this can be done by setting the environment variable PIP_EXTRA_INDEX_URL in your .bashr/.profile/.zshrc:
-		` export PIP_EXTRA_INDEX_URL=http://localhost:8080/simple/ `
+    - For pip command this can be done by setting the environment variable PIP_EXTRA_INDEX_URL in your .bashr/.profile/.zshrc: 
+    `export PIP_EXTRA_INDEX_URL=http://localhost:8080/simple/ `
 		
 		or by adding the following lines to ~/.pip/pip.conf:
 			```
@@ -427,7 +444,9 @@ For example, if you want to install a package called MyPackage.tar.gz, and assum
                         username: <some_username>
                         password: <some_passwd>
         
-    2. Managing the Package Directory:
+      |----------------------------------|
+    2.|   Managing the Package Directory |
+      |----------------------------------| 
 
     The pypi-server command has the -U option that searches for updates of available packages. It scans the package directory for available packages and searches on pypi.org for updates. Without further options pypi-server -U will just print a list of commands which must be run in order to get the latest version of each package. Output looks like:
 
@@ -452,15 +471,18 @@ For example, if you want to install a package called MyPackage.tar.gz, and assum
 
     Specifying an additional -u option will also allow alpha, beta and release candidates to be downloaded. Without this option these releases won’t be considered. 
     
-    3. serving thousands of Packages:
+      |--------------------------------|
+    3.|  serving thousands of Packages |
+      |--------------------------------| 
     
     By default, pypiserver scans the entire packages directory each time an incoming HTTP request occurs. This isn’t a problem for a small number of packages, but causes noticeable slow-downs when serving thousands of packages. 
     If you run into this problem, significant speedups can be gained by enabling pypiserver’s directory caching functionality. The only requirement is to install the watchdog package, or it can be installed during pypiserver installation, by specifying the cache extras option: 
     
-    pip install pypiserver[cache]
+    `pip install pypiserver[cache]`
     
     > There are a variety of options for handling the automated starting of pypiserver upon system startup. Two of the most common are systemd and supervis
         
+	
 ### 3. pypi server using docker on local system :
    
 To run the most recent release of pypiserver with Docker, simply:
@@ -471,8 +493,8 @@ To run the most recent release of pypiserver with Docker, simply:
 The container takes all the same arguments as the normal pypi-server executable, with the exception of the internal container port (-p), which will always be 8080.
 
 To map port 80 on the host to port 8080 on the container:
-
 `docker run -p 80:8080 pypiserver/pypiserver:latest     #You can now access your pypiserver at localhost:80 in a web browser.`
+  
   
 ### 4. pypi server on AWS-S3:
 There are a few prerequisites when setting up a Python package repository on S3:
@@ -482,20 +504,16 @@ There are a few prerequisites when setting up a Python package repository on S3:
    
 In your AWS account, you need to setup an S3 bucket configured for website hosting, as well as a Cloudfront distribution for serving the content in your S3 bucket over a secure (HTTPS) connection, which is required by pip (by default).
    
-- Install the s3pypi command line tool by running 
-
+- Install the s3pypi command line tool by running :  
 	`$ (sudo) pip install -U s3pypi` 
 
-- in your console. If everything goes well, you should be able to run the s3pypi command line tool now: 
-
+- in your console. If everything goes well, you should be able to run the s3pypi command line tool now : 
 	`$ s3pypi -v`
    
-- In order to upload your package to your repository, cd to the root directory of your project, and run: 
-
+- In order to upload your package to your repository, cd to the root directory of your project, and run : 
 	```$ s3pypi --bucket pypi.example.com```
  
-- Install your packages using pip by pointing the --extra-index-url to your subdomain:
-
+- Install your packages using pip by pointing the --extra-index-url to your subdomain :
 	`$ pip install my-project --extra-index-url https://pypi.example.com/`
 	
  [source](https://www.novemberfive.co/blog/opensource-pypi-package-repository-tutorial):
@@ -503,36 +521,29 @@ In your AWS account, you need to setup an S3 bucket configured for website hosti
 ### 5. pypi server on AWS EC2:
    
 After setting up the instance on EC2 and successfully able to connect to the instance using SSH
- - See if python3 is already pre-installed:
- 
+ - See if python3 is already pre-installed :
      `sudo yum list | grep python3`
    
- - If not, install the version you would like to use:
- 
+ - If not, install the version you would like to use :
      `sudo yum install python36`
    
- - install docker 
- 
+ - install docker : 
       `sudo yum install docker`
       
- - start the service     
- 
+ - start the service :
       `sudo service docker start`
       
-      give docker permission to run without using sudo every time
-      
+      give docker permission to run without using sudo every time : 
       `sudo usermod -a -G docker ec2-user`
       > note: if you chose an ubuntu AMI instead, username would be ubuntu@IPv4Address
       exit the instance to make sure the changes take effect 
       
  * SSH back into the instance and test if the changes have taken effect:
       
-    - check if you can run docker without the sudo command  
-    
+    - check if you can run docker without the sudo command :
        `docker info`
       
-    - if not, debug the previous steps. If so, run a test image
-    
+    - if not, debug the previous steps. If so, run a test image :
         `docker run hello-world`
       > you should see a hello message from docker after running the last command
    
@@ -549,37 +560,25 @@ After setting up the instance on EC2 and successfully able to connect to the ins
   
  * to set up a directory to store usernames and passwords that the pypi server will use to authenticate upload or download requests. We used the “htapasswd” package for this.
  
-   install httpd-tools with yum   
-   
+   install httpd-tools with yum :  
    `sudo yum install httpd-tools`
    
-   
-   switch to the user's home directory
-   
+   switch to the user's home directory :
    `cd`
    
-   
-   make a new directory called auth
-   
+   make a new directory called auth :
    `mkdir auth`
    
-   
-   cd into the auth directory
-   
+   cd into the auth directory :
    `cd auth`
    
-   
-   create a new .htpasswd file
-   
-   `htpasswd -sc .htpasswd <username>`
-   
+   create a new .htpasswd file :
+   `htpasswd -sc .htpasswd <username>` 
    
    > it will prompt you to enter a new password. Follow the prompts
    
-   > to add users
-   
+   > to add users :
       `htpasswd -s .htpasswd <NewUsername>`
-      
 
 * create a new docker-compose.yml file with the following contents
   
@@ -615,13 +614,11 @@ After setting up the instance on EC2 and successfully able to connect to the ins
 
 now the private pypi server is up and running on the AWS.
 
-to upload your package to the pypi server created earlier in this guide.
-
+to upload your package to the pypi server created earlier in this guide :
   `twine upload --repository-url http://(ec2 IPv4 IP address):8081 dist/*`
   
 
-to install packages from your pypi server
-
+to install packages from your pypi server :
   `pip install --extra-index-url http://(EC2 IPv4 IP Address):8081 YourPackageName --trusted-host (EC2 IPv4 IP Address)`
   
 
@@ -648,38 +645,29 @@ We want to run the full devpi system on our laptop:
 So let’s first initialize devpi-server:
 `$ devpi-init`
 
-
 To start devpi-server in the background we use supervisor as an example. First we create the config file for it:
 `$ devpi-gen-config`
-
 
 Then we start supervisord using a config which includes the generated file
 `$ supervisord -c gen-config/supervisord.conf`
 
-
 Then we point the devpi client to it:
 `$ devpi use http://localhost:3141`
-
 
 Then we add our own user
 `$ devpi user -c testuser password=123`
 
-
 Then we login:
 `$ devpi login testuser --password=123`
-
 
 And create a “dev” index, telling it to use the root/pypi cache as a base so that all of pypi.org packages will appear on that index:
 `$ devpi index -c dev bases=root/pypi`
 
-
 Finally we use the new index:
 `$ devpi use testuser/dev`
 
-
 We can now use the devpi command line client to trigger a pip install of a pypi package using the index from our already running server:
 `$ devpi install pytest`
-
 
 > NOTE: The devpi install command configured a pip call, using the pypi-compatible +simple/ page on THE testuser/dev index for finding and downloading packages. The pip executable was searched in the PATH and found in docenv/bin/pip.
 
