@@ -9,7 +9,7 @@ from setuptools import find_packages
 ##########################################################################
 
 ## Basic information
-NAME         = "ML_models"
+NAME         = "classification"
 DESCRIPTION  = "creating a package of ML classification model, will printout accuracy"
 VERSION      = "0.0.1"
 AUTHOR       = "abcd"
@@ -32,9 +32,12 @@ EXCLUDES     = (
 )
 
 ##########################################################################
-## Helper Functions
-##########################################################################
+## Functions
+#########################################################################
 
+with open("readme.md","r") as fh:
+    LONG_DESCRIPTION = fh.read()
+LONG_DESCRIPTION_CONTENT_TYPE = "text/markdown"
 
 ##########################################################################
 ## Define the configuration
@@ -43,6 +46,8 @@ EXCLUDES     = (
 config = {
     "name": NAME,
     "description": DESCRIPTION,
+    "long_description": LONG_DESCRIPTION,
+    "long_description_content_type": LONG_DESCRIPTION_CONTENT_TYPE
     "version":VERSION
     "author": AUTHOR,
     "author_email": EMAIL,
