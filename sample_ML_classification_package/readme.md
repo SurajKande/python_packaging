@@ -29,7 +29,7 @@ which will generate a dist folder with both wheel file and tar.gz file
 ### to use the module
 
 after installing the package to use the modules:
-    from classification import decision_tree_classifier 
+    ` from classification import decision_tree_classifier`
 
 after cleaning and feature engineering the data
 send the data as arguments as X_train, X_test, Y_train, Y_test data in sequence
