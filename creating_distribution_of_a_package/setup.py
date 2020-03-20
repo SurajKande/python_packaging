@@ -1,3 +1,4 @@
+# minimal setup.py configuration
 from setuptools import setup  
 
 setup( 
