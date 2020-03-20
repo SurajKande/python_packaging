@@ -1,0 +1,5 @@
+setup.py
+python_source_distribution_packaging.egg-info/PKG-INFO
+python_source_distribution_packaging.egg-info/SOURCES.txt
+python_source_distribution_packaging.egg-info/dependency_links.txt
+python_source_distribution_packaging.egg-info/top_level.txt
