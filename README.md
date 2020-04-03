@@ -703,7 +703,7 @@ We can now push the example-1.0.tar.gz from above to our staging index:
 > This will determine all files on our testuser/dev index belonging to the specified example==1.0 release and copy them to the testuser/staging index.
 
 ## How i hosted repository:
-For the custom server/repository I have used [pypi-server](https://pypi.org/project/pypiserver/) and hosted it from [AWS EC2 instance](https://docs.aws.amazon.com/efs/latest/ug/gs-step-one-create-ec2-resources.html). i have put below the process i followed in steps for clear understanding:
+For the custom server i had used [pypi-server](https://pypi.org/project/pypiserver/) and hosted it from [AWS EC2 instance](https://docs.aws.amazon.com/efs/latest/ug/gs-step-one-create-ec2-resources.html). I have put below the process, in steps for clear understanding:
 
 #### server side configurations
 After setting up the instance on EC2 and successfully able to connect to the instance using SSH
