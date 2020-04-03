@@ -737,9 +737,9 @@ password: <password>
 	
 - To install the packages in the client system: ```pip install --extra-index-url http://15.206.160.184/:8080/simple/ <package-name>```
       
-- To upload the package from my system to the repository i have used twine:```twine upload -r aws-repo <location-of-distributed-package>```
+- To upload the package from my system to the repository I have used twine:```twine upload -r aws-repo <location-of-distributed-package>```
       
-#### i had to make/add few rules of the ec2 instance to make my server accessable for uploading the packages.
+#### I had to make/add few rules of the ec2 instance to make my server accessable for uploading the packages.
 
 1. go to the security group of the hosted ec2 instance 
 
