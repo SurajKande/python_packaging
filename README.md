@@ -29,7 +29,7 @@ this repository is based on how to create packages and distribute the pacakges.
        -  svm_classifier.py
      * [readme.md](https://github.com/SurajKande/python_packaging/blob/master/sample_ML_classification_package/readme.md)      
      
-5. README.md: file contains the details on packaging.     
+4. README.md: file contains the details on packaging.     
 
 # What is package?
 
