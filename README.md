@@ -723,20 +723,20 @@ After setting up the instance on EC2 and successfully able to connect to the ins
 We used the “htapasswd” package to store usernames and passwords that the pypi server will use to authenticate upload or download requests
 - Install apache http tools :
 
-     ` sudo yum install httpd-tools`
+      ` sudo yum install httpd-tools`
      
 - to store the username and password 
   
-     ` htpasswd -sc htpasswd.txt <username>`
+      ` htpasswd -sc htpasswd.txt <username>`
     it will promt for password, enter the password 
 
 - Created a new folder to host packages:
 
-` mkdir packages`
-
+      ` mkdir packages`
+      
 - to host the pypi server: 
-
-` pypi-server -p 8080 --server auto -P htpasswd.txt packages &`
+      
+      ` pypi-server -p 8080 --server auto -P htpasswd.txt packages &`
 
 
 
@@ -750,19 +750,21 @@ repository: http://<ip-address-of-ec2-instance>:8080/     # it is the address of
 username: <username>                        # username registered using htpasswd
 password: <password>
 	
-- To install the packages in the client system
+- To install the packages in the client system:
 
       ` pip install --extra-index-url http://<ip-address-of-ec2-instance>:8080/simple/ <package-name>
       
-- To upload the package to the repository i have used twine 
+- To upload the package to the repository i have used twine:
 
       ` twine upload -r aws-repo <location-of-distributed-package>
       
-I hade to make/add few rules of the ec2 instance to access it
+I hade to make/add few rules of the ec2 instance to make my server accessable for uploading the packages.
 
 1. go to the security group of the hosted ec2 instance 
+
 2. go to inbound rules and press add/edit
 ![inbound rules1](https://github.com/SurajKande/python_packaging/blob/master/misc/Screenshot%20(55).png)
+
 3. add the following rules listed below in the image 
 ![inbound rules](https://github.com/SurajKande/python_packaging/blob/master/misc/Screenshot%20(57).png)
 
