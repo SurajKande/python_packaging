@@ -702,7 +702,7 @@ We can now push the example-1.0.tar.gz from above to our staging index:
 
 > This will determine all files on our testuser/dev index belonging to the specified example==1.0 release and copy them to the testuser/staging index.
 
-## How i hosted repository:
+## How I hosted repository:
 For the custom server i had used [pypi-server](https://pypi.org/project/pypiserver/) and hosted it from [AWS EC2 instance](https://docs.aws.amazon.com/efs/latest/ug/gs-step-one-create-ec2-resources.html). I have put below the process, in steps for clear understanding:
 
 #### server side configurations
@@ -718,14 +718,14 @@ We used the “htapasswd” package to store usernames and passwords that the py
 - Install apache http tools : ```sudo yum install httpd-tools```
      
 - to store the username and password: ```htpasswd -sc htpasswd.txt <username>```
-    it will promt for password, enter the password 
+    it will prompt for password, enter the password 
 
-- Created a new folder to host packages: ```mkdir packages```
+- created a new folder to host packages: ```mkdir packages```
       
 - to host the pypi server:  ```pypi-server -p 8080 --server auto -P htpasswd.txt packages &```
 
 
-#### client side configurations
+#### client side configurations:
 placed a .pypirc file in the home directory with the following contents
 [distutils]
 index-servers =
@@ -739,7 +739,7 @@ password: <password>
       
 - To upload the package from my system to the repository i have used twine:```twine upload -r aws-repo <location-of-distributed-package>```
       
-#### I hade to make/add few rules of the ec2 instance to make my server accessable for uploading the packages.
+#### i had to make/add few rules of the ec2 instance to make my server accessable for uploading the packages.
 
 1. go to the security group of the hosted ec2 instance 
 
