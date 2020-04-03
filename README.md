@@ -513,7 +513,7 @@ In your AWS account, you need to setup an S3 bucket configured for website hosti
 	
  [source](https://www.novemberfive.co/blog/opensource-pypi-package-repository-tutorial):
  
-### 5. pypi server on AWS EC2:
+### 5. pypi server on AWS EC2 using DOCKER :
    
 After setting up the instance on EC2 and successfully able to connect to the instance using SSH
  - See if python3 is already pre-installed :
@@ -746,15 +746,15 @@ placed a .pypirc file in the home directory with the following contents
 index-servers =
 	aws-repo
 [aws-repo]
-repository: http://<ip-address-of-ec2-instance>:8080/     # it is the address of the repository
+repository: http://15.206.160.184/:8080/     # it is the address of the repository i have hosted
 username: <username>                        # username registered using htpasswd
 password: <password>
 	
 - To install the packages in the client system:
 
-      ` pip install --extra-index-url http://<ip-address-of-ec2-instance>:8080/simple/ <package-name>
+      ` pip install --extra-index-url http://15.206.160.184/:8080/simple/ <package-name>
       
-- To upload the package to the repository i have used twine:
+- To upload the package from my system to the repository i have used twine:
 
       ` twine upload -r aws-repo <location-of-distributed-package>
       
