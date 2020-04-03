@@ -762,8 +762,9 @@ I hade to make/add few rules of the ec2 instance to access it
 
 1. go to the security group of the hosted ec2 instance 
 2. go to inbound rules and press add/edit
-3. add the following rules in the inbound rules of the instance
-![inbound rules](https://github.com/SurajKande/python_packaging/blob/master/misc/Screenshot%20(55).png)
+![inbound rules1](https://github.com/SurajKande/python_packaging/blob/master/misc/Screenshot%20(55).png)
+3. add the following rules listed below in the image 
+![inbound rules](https://github.com/SurajKande/python_packaging/blob/master/misc/Screenshot%20(57).png)
 
 # GLOSSARY
 
