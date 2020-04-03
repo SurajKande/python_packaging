@@ -702,6 +702,65 @@ We can now push the example-1.0.tar.gz from above to our staging index:
 
 > This will determine all files on our testuser/dev index belonging to the specified example==1.0 release and copy them to the testuser/staging index.
 
+## How i hosted repository:
+For the custom server/repository I have used [pypi-server](https://pypi.org/project/pypiserver/) and hosted it from [AWS EC2 instance](https://docs.aws.amazon.com/efs/latest/ug/gs-step-one-create-ec2-resources.html). i have put below the process i followed in steps for clear understanding:
+
+##### server side configurations
+After setting up the instance on EC2 and successfully able to connect to the instance using SSH
+
+- See if python3 is already pre-installed :
+     `sudo yum list | grep python3`
+   
+- If not, install the version you would like to use :
+     `sudo yum install python36`
+
+- Install pypiserver :
+     `sudo pip3 install pypiserver[passlib,watchdog]
+
+We used the “htapasswd” package to store usernames and passwords that the pypi server will use to authenticate upload or download requests
+- Install apache http tools :
+
+     ` sudo yum install httpd-tools`
+     
+- to store the username and password 
+  
+     ` htpasswd -sc htpasswd.txt <username>`
+    it will promt for password enter the password 
+
+- Created a new folder to host packages:
+
+` mkdir packages`
+
+- to host the pypi server: 
+
+` pypi-server -p 8080 --server auto -P htpasswd.txt packages &`
+
+
+
+##### client side configurations
+placed a .pypirc file in the home directory with the following contents
+[distutils]
+index-servers =
+	aws-repo
+[aws-repo]
+repository: http://<ip-address-of-ec2-instance>:8080/     # it is the address of the repository
+username: <username>                        # username registered using htpasswd
+password: <password>
+	
+- To install the packages in the client system
+
+      ` pip install --extra-index-url http://<ip-address-of-ec2-instance>:8080/simple/ <package-name>
+      
+- To upload the package to the repository i have used twine 
+
+      ` twine upload -r aws-repo <location-of-distributed-package>
+      
+I hade to make/add few rules of the ec2 instance to access it
+
+1. go to the security group of the hosted ec2 instance 
+2. go to inbound rules and press add/edit
+3. add the following rules in the inbound rules of the instance
+![inbound rules](https://github.com/SurajKande/python_packaging/blob/master/misc/Screenshot%20(55).png)
 
 # GLOSSARY
 
