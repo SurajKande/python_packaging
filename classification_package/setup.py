@@ -11,7 +11,7 @@ from setuptools import find_packages
 ## Basic information
 NAME         = "classification"
 DESCRIPTION  = "creating a package of ML classification model, will printout accuracy"
-VERSION      = "0.0.1"
+VERSION      = "0.1.1"
 AUTHOR       = "abcd"
 EMAIL        = "abcd@abcd.com"
 PACKAGE      = "classification"
@@ -47,8 +47,8 @@ config = {
     "name": NAME,
     "description": DESCRIPTION,
     "long_description": LONG_DESCRIPTION,
-    "long_description_content_type": LONG_DESCRIPTION_CONTENT_TYPE
-    "version":VERSION
+    "long_description_content_type": LONG_DESCRIPTION_CONTENT_TYPE,
+    "version":VERSION,
     "author": AUTHOR,
     "author_email": EMAIL,
     "url": URL,
