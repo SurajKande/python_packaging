@@ -709,13 +709,16 @@ For the custom server/repository I have used [pypi-server](https://pypi.org/proj
 After setting up the instance on EC2 and successfully able to connect to the instance using SSH
 
 - See if python3 is already pre-installed :
+
      `sudo yum list | grep python3`
    
 - If not, install the version you would like to use :
+
      `sudo yum install python36`
 
 - Install pypiserver :
-     `sudo pip3 install pypiserver[passlib,watchdog]
+
+     `sudo pip3 install pypiserver[passlib,watchdog]`
 
 We used the “htapasswd” package to store usernames and passwords that the pypi server will use to authenticate upload or download requests
 - Install apache http tools :
@@ -725,7 +728,7 @@ We used the “htapasswd” package to store usernames and passwords that the py
 - to store the username and password 
   
      ` htpasswd -sc htpasswd.txt <username>`
-    it will promt for password enter the password 
+    it will promt for password, enter the password 
 
 - Created a new folder to host packages:
 
