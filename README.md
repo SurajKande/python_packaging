@@ -714,6 +714,8 @@ After setting up the instance on EC2 and successfully able to connect to the ins
 
 - Install pypiserver : ```sudo pip3 install pypiserver[passlib,watchdog]```
 
+- Install packages : ```pip install gunicorn twisted cherrypy paste gevent```
+
 We used the “htapasswd” package to store usernames and passwords that the pypi server will use to authenticate upload or download requests
 - Install apache http tools : ```sudo yum install httpd-tools```
      
