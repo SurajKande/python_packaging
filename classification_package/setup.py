@@ -9,13 +9,13 @@ from setuptools import find_packages
 ##########################################################################
 
 ## Basic information
-NAME         = "classification"
+NAME         = "MLclassification"
 DESCRIPTION  = "creating a package of ML classification model, will printout accuracy"
-VERSION      = "0.1.1"
+VERSION      = "0.0.1"
 AUTHOR       = "abcd"
 EMAIL        = "abcd@abcd.com"
-PACKAGE      = "classification"
-URL          = "https://github.com/SurajKande/python_packaging/tree/master/sample_ML_classification_package"
+PACKAGE      = "MLclassification"
+#URL          = "https://github.com/SurajKande/python_packaging/tree/master/sample_ML_classification_package"
 KEYWORDS     = (
     'ML', 
     'python', 
@@ -51,7 +51,7 @@ config = {
     "version":VERSION,
     "author": AUTHOR,
     "author_email": EMAIL,
-    "url": URL,
+    #"url": URL,
     "maintainer": AUTHOR,
     "maintainer_email": EMAIL,
     "packages": find_packages(exclude=EXCLUDES),

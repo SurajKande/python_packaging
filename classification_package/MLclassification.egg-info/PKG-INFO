@@ -1,8 +1,8 @@
 Metadata-Version: 2.1
-Name: classification
-Version: 0.1.1
+Name: MLclassification
+Version: 0.0.1
 Summary: creating a package of ML classification model, will printout accuracy
-Home-page: https://github.com/SurajKande/python_packaging/tree/master/sample_ML_classification_package
+Home-page: UNKNOWN
 Author: abcd
 Author-email: abcd@abcd.com
 Maintainer: abcd

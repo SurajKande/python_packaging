@@ -1,0 +1,12 @@
+setup.py
+MLclassification/__init__.py
+MLclassification/decision_tree_classifier.py
+MLclassification/knn_classification.py
+MLclassification/logistic_regression.py
+MLclassification/svm_classification.py
+MLclassification.egg-info/PKG-INFO
+MLclassification.egg-info/SOURCES.txt
+MLclassification.egg-info/dependency_links.txt
+MLclassification.egg-info/not-zip-safe
+MLclassification.egg-info/requires.txt
+MLclassification.egg-info/top_level.txt
