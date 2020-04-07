@@ -1,6 +1,6 @@
 # Python Packaging
 
-this repository is based on how to create packages and distribute the pacakges.
+This repository is based on how to create and distribute python packages.
 
 ### Contents of repository:
 
@@ -39,13 +39,13 @@ A package is a collection of Python modules. Packages are a way of structuring b
    
 # Python modules
 
-A Python file, provided it only relies on the standard library, can be redistributed and reused. You will also need to ensure it’s written for the right version of Python, and only relies on the standard library.
+A python file, provided it only relies on the standard library, can be redistributed and reused. You will also need to ensure it’s written for the right version of Python, and only relies on the standard library.
 
 This is great for sharing simple scripts and snippets between people who both have compatible Python versions. There are even some entire Python libraries that offer this as an option, such as [bottle.py](https://bottlepy.org/docs/dev/) and [boltons](https://boltons.readthedocs.io/en/latest/architecture.html#architecture)
 
 # Why packaging ?
    
-The easiest way to organize the code of big applications is to split them into several packages. This makes the code simpler, easier to understand, maintain, and change. It also maximizes the reusability of your code. Separate packages act as components that can be used in various programs.
+The easiest way to organize the code of big applications is to split them into several packages. This makes the code simpler, easier to understand, maintain, and change, it also maximizes the reusability of your code. Separate packages act as components that can be used in various programs.
    How to share these modules between people, it becomes harder to share every single file seperately, it’s usually organized into a directory structure. if your code consists of multiple Python files Any directory containing Python files can comprise an package.
    
 ### example of package structure:
@@ -64,7 +64,7 @@ ___
 
     step1: create a dictionary, The name of this directory will be the name of the package, which we want to create 
 
-    step2: This directory needs to contain a file with the name "__init__.py". 
+    step2: the directory needs to contain a file with the name "__init__.py". 
     	   - This file can be empty, or it can contain valid Python code. 
 	   - This code will be executed when a package will be imported, so it can be used to initialize a package,
 
@@ -76,7 +76,7 @@ ___
 
 -------------
 
-For working with distributed packages, we need few Tools which are divided into the following two groups:
+For working with distributed packages, we need few tools which are divided into the following two groups:
 	- Tools for installing packages
 	- Tools for package creation and distribution.
 
