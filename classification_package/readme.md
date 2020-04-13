@@ -23,9 +23,9 @@
 ### Installing:
 
 create a virtual environment
->>> `virtualenv venv`
+> `virtualenv venv`
 
->>> `venv\Scripts\activate`
+> `venv\Scripts\activate`
 
 for installing the package run the command: 
 
