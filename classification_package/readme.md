@@ -24,11 +24,12 @@
 
 create a virtual environment
 >>> `virtualenv venv`
+
 >>> `venv\Scripts\activate`
 
 for installing the package run the command: 
 
-```pip install http://15.206.160.184:8080/packages/genpactclassification-0.0.3-py3-none-any.whl#md5=b78d8a3653004e5cdaca6c0087326e7e```
+`pip install http://15.206.160.184:8080/packages/genpactclassification-0.0.3-py3-none-any.whl#md5=b78d8a3653004e5cdaca6c0087326e7e`
 
 
 ### To use the module:
